@@ -1,0 +1,29 @@
+ion-img.logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 15px;
+    display: inline-block;
+}
+.logo-name {
+    vertical-align: middle;
+}
+ion-card {
+    margin: 0;
+    ion-card-header {
+        padding: 0;
+        ion-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: auto;
+        }
+    }
+}
+ion-searchbar {
+    padding: 0;
+}
+.text-center {
+    text-align: center
+}
