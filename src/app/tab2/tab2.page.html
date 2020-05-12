@@ -1,17 +1,66 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      <ion-img class="logo" src='http://golden-handle.com/logo.png'></ion-img>
+      <span class="logo-name">Golden Handle</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid class="no-padding">
+    <ion-row>
+      <ion-col size=12>
+        <ion-searchbar placeholder="Search products"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <hr />
+    <ion-row>
+      <ion-col size=12 class="no-padding">
+        <ion-list>
+          <ion-item>
+            <ion-row class="w100">
+              <ion-col size=4 class="align-product-image">
+                <ion-img
+                  src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/product/product-1.jpg">
+                </ion-img>
+              </ion-col>
+              <ion-col size=8>
+                <p class="marginB15"><b>Electronic Planer</b></p>
+                <ion-button color='light' size="small">Edition</ion-button>
+                <div class="flex-container">
+                  <p>KWD 26.500</p>
+                  <ion-input type='number' value='1' class="quantity"></ion-input>
+                </div>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+                <ion-button color='primary' expand="block" size='md' fill="outline">Add</ion-button>
+
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <ion-item>
+            <ion-row class="w100">
+              <ion-col size=4 class="align-product-image">
+                <ion-img
+                  src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/product/product-3.jpg">
+                </ion-img>
+              </ion-col>
+              <ion-col size=8>
+                <p class="marginB15"><b>Drill Screwdriver Drill Screwdriver</b></p>
+                <ion-button color='light' size="small">Edition</ion-button>
+                <div class="flex-container">
+                  <p>KWD 26.500</p>
+                  <ion-input type='number' value='1' class="quantity"></ion-input>
+                </div>
+
+                <ion-button color='primary' expand="block" size='md' fill="outline">Add</ion-button>
+
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
