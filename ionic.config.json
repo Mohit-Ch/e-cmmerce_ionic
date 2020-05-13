@@ -1,7 +1,5 @@
 {
-  "name": "myApp3",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
+  "name": "myApp8",
+  "integrations": {},
+  "type": "ionic-angular"
 }
