@@ -10,14 +10,13 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col col-12 class="autocomplete">
+      <ion-col col-12 class="autocomplete paddingTLR10">
         <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
         </ion-searchbar>
         <ion-list *ngIf="searchItem.length>0 && ShowSearchList">
           <ion-item *ngFor="let res of searchItem" (click)="dataclick(res)">
             <img [src]="res.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
             {{res.itemName}}
-
           </ion-item>
         </ion-list>
       </ion-col>
@@ -25,9 +24,7 @@
         <ion-card (click)="subcategory(item)">
           <ion-card-header>
             <img [src]="item.photo" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
-
           </ion-card-header>
-
           <ion-card-content>
             <p class="text-center">{{item.category_name}}</p>
           </ion-card-content>

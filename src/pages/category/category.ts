@@ -52,13 +52,15 @@ export class CategoryPage {
 
     if (item["ISsubCategory"] == true) {
       this.navCtrl.push(SubcategoryPage, {
-        CategoryId: item["id"]
+        CategoryId: item["id"],
+        name: item['category_name']
       });
     }
     else if (item["Isproduct"] == true) {
       this.navCtrl.push(ProductPage, {
         categoryId: item["id"],
-        subcategoryId: 0
+        subcategoryId: 0,
+        name: item['category_name']
       });
     }
     else {
@@ -78,8 +80,8 @@ export class CategoryPage {
   }
 
   search(ev) {
-    let Searchtext =   ev.target.value;;
-    if (Searchtext != "" ) {
+    let Searchtext = ev.target.value;;
+    if (Searchtext != "") {
       let loading = this.auth.loadginFactory();
       this.auth.getSearchProduct(Searchtext).subscribe(res => {
         loading.dismiss();
@@ -87,25 +89,24 @@ export class CategoryPage {
         if (res["status"] == 'success') {
           if (res["data"] != '') {
             this.searchItem = res["data"];
-            if(this.searchItem.length>0){
-              this.ShowSearchList=true;
+            if (this.searchItem.length > 0) {
+              this.ShowSearchList = true;
             }
-            else{
-              this.ShowSearchList=false;
+            else {
+              this.ShowSearchList = false;
             }
-           
+
           }
           this.searchItem = res["data"];
         }
-        else{
+        else {
           this.searchItem = [];
-          this.ShowSearchList=false;
+          this.ShowSearchList = false;
         }
       });
     }
   }
-  dataclick(data)
-  {
+  dataclick(data) {
     this.navCtrl.push(ProductDetailPage, {
       productId: data["id"]
     });

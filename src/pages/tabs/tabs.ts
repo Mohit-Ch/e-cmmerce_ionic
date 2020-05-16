@@ -18,23 +18,23 @@ export class TabsPage {
   tab4Root = AboutPage;
   tab5Root = CartPage;
 
-  countcartShow:any=0;
-  cardnoshow:any;
-  constructor(public auth:AuthProvider) {
+  countcartShow: any = 0;
+  cardnoshow: any;
+  constructor(public auth: AuthProvider) {
 
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.cardnoshow = setInterval(() => {
-        this.auth.getorderincart().then(x=>{
-          this.countcartShow=x.length;
-        })
-    }, 5000);
+      this.auth.getorderincart().then(x => {
+        if (x != undefined)
+          this.countcartShow = x.length;
+      })
+    }, 1000);
   }
 
   ngOnDestroy() {
     clearInterval(this.cardnoshow);
   }
-  
+
 }

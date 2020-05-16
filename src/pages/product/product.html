@@ -1,15 +1,14 @@
 <ion-header>
   <ion-navbar color="white">
     <ion-toolbar>
-      <ion-title>
-        <img class="logo" src="http://golden-handle.com/logo.png" />
-        <span class="logo-name">Golden Handle product</span>
+      <ion-title *ngIf='name != undefined'>
+        {{name}}
       </ion-title>
     </ion-toolbar>
- </ion-navbar>
-</ion-header> 
+  </ion-navbar>
+</ion-header>
 
-<ion-content >
+<ion-content>
   <ion-grid class="no-padding">
     <ion-row>
       <ion-col col-12 class="autocomplete">
@@ -24,44 +23,49 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    <hr />
     <ion-row>
-      <ion-col col-12 class="no-padding" >
+      <ion-col col-12 class="no-padding">
         <ion-list *ngIf="productList.length>0">
-          <ion-card *ngFor="let item of productList">
+          <div *ngFor="let item of productList">
             <ion-row class="w100">
               <ion-col col-4 class="align-product-image" (click)="ProductDetail(item.id)">
                 <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
               </ion-col>
               <ion-col col-8>
-                <p class="marginB15"><b>{{item.itemName}}</b></p>
-                <ion-item *ngIf="item.EditionType!=0">
-                  <ion-label>Edition</ion-label>
-                  <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange(item)"[(ngModel)]="item.EditionId" >
-                    <ion-option *ngFor="let editions of item.Edition " [value]="editions.id">{{editions.itemEditionName}}</ion-option>
+                <h5 class="marginB10"><b>{{item.itemName}}</b></h5>
+                <!-- <ion-item *ngIf="item.EditionType!=0"> -->
+                <ion-item>
+                  <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange(item)"
+                    [(ngModel)]="item.EditionId">
+                    <ion-option *ngFor="let editions of item.Edition " [value]="editions.id">
+                      {{editions.itemEditionName}}</ion-option>
                   </ion-select>
                 </ion-item>
-                <ion-item *ngIf="item.EditionType==0">
+                <!-- <ion-item *ngIf="item.EditionType==0">
                   <ion-label *ngIf="item.Edition!=undefined &&item.Edition.length>0 ">{{item.Edition[0].itemEditionName}}</ion-label>
-                </ion-item>
+                </ion-item> -->
                 <div class="flex-container">
-                  <p>KWD {{item.price}}</p>
-                  <ion-input *ngIf="item.ShowAddbutton==true" type='number'  class="quantity" [(ngModel)]="item.quantity" width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                  <ion-input *ngIf="item.ShowAddbutton==true" type='number' class="quantity" [(ngModel)]="item.quantity"
+                    width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                  <h6 class="no-margin">KWD {{item.price}}</h6>
                 </div>
-                <button ion-button  color='primary' *ngIf="item.ShowAddbutton==true" expand="block" size='md' fill="outline" (click)="addtoCartClick(item)">Add</button>
+                <div class="text-center">
+                  <button class="add-product" ion-button color='primary' *ngIf="item.ShowAddbutton==true" expand="block"
+                    size='lg' fill="outline" (click)="addtoCartClick(item)">Add</button>
+                </div>
               </ion-col>
             </ion-row>
-        </ion-card>
+            <hr />
+          </div>
         </ion-list>
         <ion-list *ngIf="productList.length==0">
-        <ion-card >
+          <ion-card>
             <ion-row class="w100">
-             No Item to be showen
+              No Item to be showen
             </ion-row>
-        </ion-card>
+          </ion-card>
         </ion-list>
       </ion-col>
     </ion-row>
-
   </ion-grid>
 </ion-content>

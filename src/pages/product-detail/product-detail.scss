@@ -1,13 +1,19 @@
 page-product-detail {
     ion-input.quantity {
-        margin: 5px 15px;
+        margin: 5px;
         max-width: 40px;
         border: 1px solid #ccc;
         border-radius: 10px;
+        margin-right: 15px;
         display: flex;
         input.native-input {
             text-align: center !important;
             padding: 10px 8px !important;
+        }
+        .text-input-md, .text-input-ios {
+            text-align: center;
+            margin: 8px 4px;
+            width: 100%;
         }
     }
     .marginB20 {
@@ -30,5 +36,49 @@ page-product-detail {
     }
     hr {
         background: #dedede;
+    }
+    ion-slides {
+        max-height: 50vh;
+    }
+    ion-item, .item-md {
+        min-height: auto;
+        padding: 0;
+        font-size: 14px;
+        ion-label, .label-md, .label-ios {
+            margin: 0;
+        }
+    }
+    ion-select, .select-md, .select-ios {
+        max-width: 100%;
+        width: 100%;
+        padding: 5px 5px 5px 0;
+    }
+    .marginB56 {
+        margin-bottom: 56px;
+    }
+    ion-footer {
+        padding: 5px;
+        margin-bottom: 55px;
+        background: #fff;
+        .toolbar-background-md {
+            border-color: #ffffff;
+            background: #ffffff;
+        }
+        .toolbar-content {
+            display: flex;
+            h5 {
+                display: inline-block;
+            }
+            .flex2 {
+                flex: 2;
+            }
+            .flex1 {
+                flex: 1;
+            }
+        }
+        
+    }
+    .swiper-slide img {
+        max-width: 80%;
     }
 }

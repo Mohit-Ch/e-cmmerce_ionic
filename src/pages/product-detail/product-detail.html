@@ -1,14 +1,14 @@
-<ion-header >
+<ion-header>
   <ion-navbar color="white">
-  <ion-toolbar>
-    <ion-title>
-      Product Name
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+      <ion-title *ngIf="productdata!=undefined">
+        {{productdata.itemName}}
+      </ion-title>
+    </ion-toolbar>
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-slides pager *ngIf="itemImage.length>0">
     <ion-slide *ngFor="let item of itemImage">
       <img [src]="item.imageURL" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
@@ -18,26 +18,27 @@
         src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/product/product-2.jpg" />
     </ion-slide> -->
   </ion-slides>
-  <ion-row *ngIf="productdata!=undefined">
+  <ion-row class="marginB56" *ngIf="productdata!=undefined">
     <ion-col padding='8' class="paddingLR15">
-      <h4 class="marginB20 text-center">{{productdata.itemName}}</h4>
+      <!-- <h4 class="marginB20 text-center"></h4> -->
       <ion-row>
-        <ion-col col-6 class="">
-          <ion-item *ngIf="productdata.EditionType!=0">
-            <ion-label>Edition</ion-label>
-            <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange()"[(ngModel)]="productdata.EditionId" >
-              <ion-option *ngFor="let editions of itemedition " [value]="editions.id">{{editions.itemEditionName}}</ion-option>
+        <ion-col col-12 class="">
+          <!-- <ion-item *ngIf="productdata.EditionType!=0"> -->
+          <ion-item>
+            <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange()"
+              [(ngModel)]="productdata.EditionId">
+              <ion-option *ngFor="let editions of itemedition " [value]="editions.id">{{editions.itemEditionName}}
+              </ion-option>
             </ion-select>
           </ion-item>
-          <ion-item *ngIf="productdata.EditionType==0">
-            <ion-label *ngIf="itemedition!=undefined && itemedition.length>0 ">{{itemedition[0].itemEditionName}}</ion-label>
-          </ion-item>
-          <ion-input type='number'  class="quantity" [(ngModel)]="productdata.quantity" width="10%" min="0" [max]="productdata.maxquantity"></ion-input>
-        </ion-col>
-        <ion-col col-6>
-          <div class="">
-            <h5 class="text-center">KWD {{productdata.price}}</h5>
-            <button ion-button color='primary' *ngIf="productdata.ShowAddbutton==true" (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Add</button>
+          <!-- <ion-item *ngIf="productdata.EditionType==0">
+              <ion-label *ngIf="itemedition!=undefined && itemedition.length>0 ">{{itemedition[0].itemEditionName}}
+              </ion-label>
+            </ion-item> -->
+          <div class="flex-container">
+            <ion-label>Quantity</ion-label>
+            <ion-input type='number' class="quantity" [(ngModel)]="productdata.quantity" width="10%" min="0"
+              [max]="productdata.maxquantity"></ion-input>
           </div>
         </ion-col>
       </ion-row>
@@ -45,17 +46,17 @@
       <p *ngIf="productdata!=undefined">
         {{productdata.aboutItem}}
       </p>
-      <ion-row *ngIf="itemInfo.length>0">
-        <ion-col padding='8' class="paddingLR15">
-          <h4 class="marginB20 text-center">Additional Info</h4>
-          <ion-row >
-            <ion-col col-12 *ngFor="let item of itemInfo">
-              {{ item.AttributeKey==null?"" : item.AttributeKey }}<span *ngIf="item.AttributeKey!=null && item.AttributeKey!=''"> :</span> {{item.AttributeValue}}
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+      <p *ngFor="let item of itemInfo">
+        {{ item.AttributeKey==null?"" : item.AttributeKey }}<span
+          *ngIf="item.AttributeKey!=null && item.AttributeKey!=''"> :</span> {{item.AttributeValue}}
+      </p>
     </ion-col>
   </ion-row>
-
 </ion-content>
+<ion-footer class="ion-no-border" *ngIf="productdata!=undefined">
+  <ion-toolbar>
+    <h5 class="flex2">KWD {{productdata.price}}</h5>
+    <button class="flex1" ion-button color='primary' *ngIf="productdata.ShowAddbutton==true"
+      (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Buy</button>
+  </ion-toolbar>
+</ion-footer>

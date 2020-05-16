@@ -14,3 +14,112 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.grid {
+    padding: 0
+}
+
+.paddingTLR10 {
+    padding: 10px 10px 0 10px;
+}
+
+ion-searchbar, .searchbar-ios, .searchbar-md{
+    background: transparent;
+    padding: 0;
+    .searchbar-input-container {
+        min-height: auto;
+    }
+    
+}
+
+.autocomplete {
+    width: 100%;
+
+    .autocomplete-searchbar {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    ion-list {
+        position: absolute;
+        overflow-y: scroll;
+        max-height: 60vh;
+        z-index: 100000;
+        background: #fff;
+        height: auto;
+        left: 0;
+        right: 0;
+        width: 97%;
+        margin: auto;
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+
+        ion-item {
+            padding: 0;
+            ion-label {
+                padding: 5px 10px;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                white-space: normal;
+                img {
+                    width: 50px;
+                    height: 50px;
+                    object-fit: contain;
+                    margin-left: 0;
+                    margin-right: 10px;
+                }
+            }
+        }
+        ion-item:hover {
+            cursor: pointer;
+            background: #f1f1f1
+        }
+    }
+}
+
+img.logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 15px;
+    display: inline-block;
+}
+.logo-name {
+    vertical-align: middle;
+}
+ion-card, .card-md, .card-ios {
+    margin: 5px;
+    width: calc(100% - 10px);
+    ion-card-header {
+        padding: 0;
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: auto;
+        }
+    }
+}
+.text-center {
+    text-align: center
+}
+
+
+.w100 {
+    width: 100%;
+}
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+.no-padding {
+    padding: 0;
+}
+.marginB15 {
+    margin-bottom: 15px;
+}
