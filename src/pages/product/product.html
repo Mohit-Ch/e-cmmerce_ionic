@@ -12,55 +12,51 @@
 <ion-content >
   <ion-grid class="no-padding">
     <ion-row>
-      <ion-col col-12>
-        <ion-searchbar placeholder="Search products"></ion-searchbar>
+      <ion-col col-12 class="autocomplete">
+        <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
+        </ion-searchbar>
+        <ion-list *ngIf="searchItem.length>0 && ShowSearchList">
+          <ion-item *ngFor="let res of searchItem" (click)="dataclick(res)">
+            <img [src]="res.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
+            {{res.itemName}}
+
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
     <hr />
     <ion-row>
-      <ion-col col-12 class="no-padding">
-        <ion-list>
-          <ion-card>
+      <ion-col col-12 class="no-padding" >
+        <ion-list *ngIf="productList.length>0">
+          <ion-card *ngFor="let item of productList">
             <ion-row class="w100">
-              <ion-col col-4 class="align-product-image" (click)="ProductDetail()">
-                <img src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/product/product-1.jpg"/>
-                
+              <ion-col col-4 class="align-product-image" (click)="ProductDetail(item.id)">
+                <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
               </ion-col>
               <ion-col col-8>
-                <p class="marginB15"><b>Electronic Planer</b></p>
-                <ion-item>
+                <p class="marginB15"><b>{{item.itemName}}</b></p>
+                <ion-item *ngIf="item.EditionType!=0">
                   <ion-label>Edition</ion-label>
-                  <ion-select value="brown" okText="Okay" cancelText="Dismiss">
-                    <ion-option value="Edition1">Edition1</ion-option>
-                    <ion-option value="Edition2">Edition2</ion-option>
-                    <ion-option value="Edition3">Edition3</ion-option>
-                    <ion-option value="Edition4">Edition4</ion-option>
+                  <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange(item)"[(ngModel)]="item.EditionId" >
+                    <ion-option *ngFor="let editions of item.Edition " [value]="editions.id">{{editions.itemEditionName}}</ion-option>
                   </ion-select>
                 </ion-item>
+                <ion-item *ngIf="item.EditionType==0">
+                  <ion-label *ngIf="item.Edition!=undefined &&item.Edition.length>0 ">{{item.Edition[0].itemEditionName}}</ion-label>
+                </ion-item>
                 <div class="flex-container">
-                  <p>KWD 26.500</p>
-                  <ion-input type='number' value='1' class="quantity" width="10%" min="0"></ion-input>
+                  <p>KWD {{item.price}}</p>
+                  <ion-input *ngIf="item.ShowAddbutton==true" type='number'  class="quantity" [(ngModel)]="item.quantity" width="10%" min="0" [max]="item.maxquantity"></ion-input>
                 </div>
-                <button ion-button  color='primary' expand="block" size='md' fill="outline">Add</button>
+                <button ion-button  color='primary' *ngIf="item.ShowAddbutton==true" expand="block" size='md' fill="outline" (click)="addtoCartClick(item)">Add</button>
               </ion-col>
             </ion-row>
         </ion-card>
-        <ion-card>
+        </ion-list>
+        <ion-list *ngIf="productList.length==0">
+        <ion-card >
             <ion-row class="w100">
-              <ion-col col-4 class="align-product-image">
-                <img
-                  src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/product/product-3.jpg"/>
-               
-              </ion-col>
-              <ion-col col-8>
-                <p class="marginB15"><b>Drill Screwdriver Drill Screwdriver</b></p>
-                <button ion-button  color='light' size="small">Edition</button>
-                <div class="flex-container">
-                  <p>KWD 26.500</p>
-                  <ion-input type='number' value='1' class="quantity"></ion-input>
-                </div>
-                <button ion-button color='primary' expand="block" size='md' fill="outline">Add</button>
-              </ion-col>
+             No Item to be showen
             </ion-row>
         </ion-card>
         </ion-list>

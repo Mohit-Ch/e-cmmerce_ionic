@@ -3,5 +3,5 @@
   <ion-tab [root]="tab2Root" tabTitle="Login" tabIcon="ios-person-outline"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="ios-mail-open-outline"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="About Us" tabIcon="ios-people-outline"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="Cart" tabIcon="ios-cart-outline"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Cart" tabIcon="ios-cart-outline" [tabBadge]="countcartShow==0?'' :countcartShow"></ion-tab>
 </ion-tabs>

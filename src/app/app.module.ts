@@ -16,6 +16,10 @@ import { ProductPage } from '../pages/product/product';
 import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { EmailPage } from '../pages/email/email';
 import { CartPage } from '../pages/cart/cart';
+import { AuthProvider } from '../providers/auth/auth';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { CartPage } from '../pages/cart/cart';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    CommonModule ,
+    IonicModule.forRoot(MyApp),    
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,7 +59,8 @@ import { CartPage } from '../pages/cart/cart';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {}

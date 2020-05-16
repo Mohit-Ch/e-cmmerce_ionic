@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProductPage } from '../product/product';
+import { AuthProvider } from '../../providers/auth/auth';
+import { ProductDetailPage } from '../product-detail/product-detail';
 
 /**
  * Generated class for the SubcategoryPage page.
@@ -15,16 +17,77 @@ import { ProductPage } from '../product/product';
 })
 export class SubcategoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  SubcategoryList:any=[];
+  categoryId:any=0;
+  searchItem: any = [];
+  searchText: any = "";
+  ShowSearchList: any = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public auth: AuthProvider) {
+    this.categoryId=this.navParams.data["CategoryId"];
+    console.log(this.categoryId);
+    this.getsubCategoryList();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubcategoryPage');
+   
   }
 
-  productclick()
+  getsubCategoryList()
   {
-    this.navCtrl.push(ProductPage);
+    let loading = this.auth.loadginFactory();
+    this.auth.getsubCategoryList(this.categoryId).subscribe(res=>{
+      loading.dismiss();
+      console.log(res);
+      if(res["status"]=='success')
+      { 
+        if(res["data"]!='')
+        {
+         this.SubcategoryList=res["data"];
+        }
+      }
+    });
+  }
+
+  productclick(id:any)
+  {
+    this.navCtrl.push(ProductPage,{
+      categoryId:this.categoryId,
+      subcategoryId:id
+    });
+  }
+
+  search(ev) {
+    let Searchtext =   ev.target.value;;
+    if (Searchtext != "" ) {
+      let loading = this.auth.loadginFactory();
+      this.auth.getSearchProduct(Searchtext).subscribe(res => {
+        loading.dismiss();
+        console.log(res);
+        if (res["status"] == 'success') {
+          if (res["data"] != '') {
+            this.searchItem = res["data"];
+            if(this.searchItem.length>0){
+              this.ShowSearchList=true;
+            }
+            else{
+              this.ShowSearchList=false;
+            }
+           
+          }
+          this.searchItem = res["data"];
+        }
+        else{
+          this.searchItem = [];
+          this.ShowSearchList=false;
+        }
+      });
+    }
+  }
+  dataclick(data)
+  {
+    this.navCtrl.push(ProductDetailPage, {
+      productId: data["id"]
+    });
   }
 
 }

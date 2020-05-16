@@ -5,6 +5,7 @@ import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
 import { CategoryPage } from '../category/category';
 import { CartPage } from '../cart/cart';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -17,7 +18,23 @@ export class TabsPage {
   tab4Root = AboutPage;
   tab5Root = CartPage;
 
-  constructor() {
+  countcartShow:any=0;
+  cardnoshow:any;
+  constructor(public auth:AuthProvider) {
 
   }
+
+  ngOnInit()
+  {
+    this.cardnoshow = setInterval(() => {
+        this.auth.getorderincart().then(x=>{
+          this.countcartShow=x.length;
+        })
+    }, 5000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.cardnoshow);
+  }
+  
 }

@@ -14,23 +14,29 @@
 <ion-content >
   <ion-grid>
     <ion-row>
-      <ion-col col-12>
-        <ion-searchbar placeholder="Search products"></ion-searchbar>
+      <ion-col col-12  class="autocomplete">
+        <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
+        </ion-searchbar>
+        <ion-list *ngIf="searchItem.length>0 && ShowSearchList">
+          <ion-item *ngFor="let res of searchItem" (click)="dataclick(res)">
+            <img [src]="res.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
+            {{res.itemName}}
+
+          </ion-item>
+        </ion-list>
       </ion-col>
-      <ion-col ca (click)="productclick()">
-        <ion-card>
+      <ion-col col-6 *ngFor="let item of SubcategoryList" >
+        <ion-card (click)="productclick(item.id)">
           <ion-card-header>
-            <img
-              src="https://gitcdn.link/cdn/Mohit-Ch/ranaissancebridge/9672d4dbdf787aadb2c4b4b8872fd59692d98ef4/assets/images/discount-product/product-3.jpg" />
-          
+            <img [src]="item.photo" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
           </ion-card-header>
 
           <ion-card-content>
-            <p class="text-center">Power Tools</p>
+            <p class="text-center">{{item.Subcategory_name}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col col-6>
+      <!-- <ion-col col-6>
         <ion-card>
           <ion-card-header>
             <img
@@ -123,7 +129,7 @@
             <p class="text-center">Safty</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-content>
