@@ -28,10 +28,10 @@ export class AuthProvider {
     public platform: Platform) {
       let env = this;
         // For development
-    this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+    //this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
       // Live Server Link 
-    //  this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
+      this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
