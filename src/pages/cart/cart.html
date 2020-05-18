@@ -1,15 +1,183 @@
-<!--
-  Generated template for the CartPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>Cart</ion-title>
+  <ion-navbar color="white">
+    <ion-toolbar>
+      <ion-title>
+        Cart
+      </ion-title>
+    </ion-toolbar>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-grid class="no-padding"  *ngIf=" productList!=undefine && productList.length>0">
+    <ion-row>
+      <ion-col col-12 class="autocomplete">
+        <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
+        </ion-searchbar>
+        <ion-list *ngIf="searchItem!=undefine && searchItem.length>0 && ShowSearchList">
+          <ion-item *ngFor="let res of searchItem" (click)="dataclick(res)">
+            <img [src]="res.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
+            {{res.itemName}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="no-padding">
+        <ion-list *ngIf="productList.length>0">
+          <div *ngFor="let item of productList">
+            <ion-row class="w100">
+              <ion-col col-4 class="align-product-image" (click)="ProductDetail(item.id)">
+                <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
+              </ion-col>
+              <ion-col col-8>
+                <h5 class="marginB10"><b>{{item.itemName}}</b></h5>
+                <ion-item>
+                  <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange(item)"
+                    [(ngModel)]="item.EditionId">
+                    <ion-option *ngFor="let editions of item.Edition " [value]="editions.id">
+                      {{editions.itemEditionName}}</ion-option>
+                  </ion-select>
+                </ion-item>
+                <div class="flex-container">
+                  <ion-input *ngIf="item.ShowAddbutton==true" type='number' class="quantity" [(ngModel)]="item.quantity" (ionChange)="addtoCartClick($event, item)"
+                    width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                  <h6 class="no-margin">KWD {{item.price}}</h6>
+                </div>
+                <div class="text-center">
+                  <button class="add-product" ion-button color='primary' *ngIf="item.ShowAddbutton==true" expand="block"
+                    size='lg' fill="outline" (click)="RemoveToCart(item)">Remove</button>
+                </div>
+                <div class="text-center text-denger" *ngIf="item.OutOfOrder">
+                 <p>Out Of Order</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <hr />
+          </div>
+        </ion-list>
+        <ion-list *ngIf="productList.length==0">
+          <ion-card>
+            <ion-row class="w100">
+              No Item to be showen
+            </ion-row>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-12>
+            <h5 class="marginB10"><b>Apply Coupan </b></h5>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <div class="flex-container">
+              <ion-input type='text' class="couponcode" width="10%" max="6" [(ngModel)]="coupanCode"></ion-input>
+              <button class="apply-coupon" ion-button color='primary' right expand="block" size='lg' fill="outline"
+                (click)="Applycouponcode()">Apply </button>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 left >
+            <ion-row *ngIf="coupanShowMessagedeny">
+              <ion-col col-12 class="text-right text-denger">
+                Coupon is not Valid!
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="coupanShowMessagesuccess">
+              <ion-col col-12 class="text-right text-primary" >
+                coupon applied ASDFFC
+                Note* Max Discount Amount is 100 and Minium order Amount 20
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row> -->
+    <ion-row>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6 class="text-right">
+            <ion-row>
+              <ion-col col-12>
+                Sub Total
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-6 >
+            <ion-row>
+              <ion-col col-6 class="text-right">
+                KWD
+              </ion-col>
+              <ion-col col-6>
+               {{subtotal}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 class="text-right">
+            <ion-row>
+              <ion-col col-12>
+                Discount
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-6 >
+            <ion-row>
+              <ion-col col-6 class="text-right">
+                KWD
+              </ion-col>
+              <ion-col col-6>
+                {{Discount}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 class="text-right">
+            <ion-row>
+              <ion-col col-12>
+                Total
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-6 >
+            <ion-row>
+              <ion-col col-6 class="text-right">
+                KWD
+              </ion-col>
+              <ion-col col-6>
+                {{total}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col col-12>
+        <button class="add-product" ion-button color='primary'  expand="block"
+        size='lg' fill="outline" (click)="RemoveToCart(item)">Remove</button>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+  <ion-grid *ngIf=" cartdetail.length==0">
+    <ion-row>
+      <ion-col>
+        Your cart is empty!
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer class="ion-no-border" *ngIf="showProcidebutton!=undefined">
+  <ion-toolbar>
+    <h5 class="flex2">KWD {{total}}</h5>
+    <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true"
+      (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Proced</button>
+  </ion-toolbar>
+</ion-footer>

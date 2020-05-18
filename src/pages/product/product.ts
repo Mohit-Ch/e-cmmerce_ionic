@@ -76,7 +76,11 @@ export class ProductPage {
     });
   }
   addtoCartClick(item: any) {
-    this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+    if(item["quantity"]<=item["maxquantity"]){
+       this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+    }else{
+      this.presentToast("This much quantity is not available")
+    }
     // this.presentToast("product Add to cart succefully")
   }
   datachange(item) {
