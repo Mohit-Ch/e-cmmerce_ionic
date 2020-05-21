@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="no-padding"  *ngIf=" productList!=undefine && productList.length>0">
     <ion-row>
       <ion-col col-12 class="autocomplete">
@@ -174,10 +177,10 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer class="ion-no-border" *ngIf="showProcidebutton!=undefined">
+<ion-footer class="ion-no-border" *ngIf="showProcidebutton==true">
   <ion-toolbar>
     <h5 class="flex2">KWD {{total}}</h5>
     <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true"
-      (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Proced</button>
+      (click)="checkout()" expand="block" size='lg' fill="outline">CheckOut</button>
   </ion-toolbar>
 </ion-footer>

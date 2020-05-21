@@ -1,15 +1,36 @@
-<!--
-  Generated template for the AddressModelPage page.
+<ion-content padding class="shortModal">
+    
+  <ion-list>
+    <ion-item>
+      <b>Choose your Address</b>
+      <div float-end (click)="closeModal()">
+          <ion-icon name="close"></ion-icon>
+        </div>
+    </ion-item>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-  <ion-navbar>
-    <ion-title>AddressModel</ion-title>
-  </ion-navbar>
-</ion-header>
+    <ion-item *ngIf="callAddressList.length>0">
+      <ion-card *ngFor="let item of callAddressList" >
+        <!-- <ion-card-header>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+          <ion-card-title>Card Title</ion-card-title>
+        </ion-card-header> -->
+        <ion-card-content (click)="onclickgrid(item)">
+        {{item.address1}} ,{{item.city}},{{item.country}},{{item.postal_code}}
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
 
-<ion-content padding>
+    <ion-item *ngIf="addressStorage!=undefined">
+      <ion-card (click)="onclickgrid(addressStorage)">
+        <ion-card-content >
+          {{addressStorage.address1}} ,{{addressStorage.city}},{{addressStorage.country}},{{addressStorage.postal_code}}
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
 
+
+    <ion-item>
+      <button ion-button color="primary" (click)=AddNewAddress()>Add New Addews</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

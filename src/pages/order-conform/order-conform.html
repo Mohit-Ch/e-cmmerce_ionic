@@ -6,10 +6,19 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>OrderConform</ion-title>
+    <ion-title>Order Conform</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-row *ngIf="status=='success'">
+    <h4>Your Order is placed</h4>
+    <ion-col>
+      Order Id {{orderId}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="status=='error'">
+    <h4>some error Accured while order placing</h4>
+  </ion-row>
 
 </ion-content>

@@ -166,6 +166,23 @@ export class AuthProvider {
     return val;
   }
 
+  // set Address Storage
+  public SetAddressStorage( address:any, city:any, country:any,postalcode:any) {
+    let Address = {
+      address: address,
+      city: city,
+      country: country,
+      postalcode:postalcode
+    }
+    this.storage.set("Address", Address);
+  }
+
+  // Get Address Storage
+  public getAddressStorage() {
+    const val = this.storage.get("Address");
+    return val;
+  }
+
   // Get productList
   getproductList(categoryId: any, subcategoryId: any): Observable<any> {
     return this.http.get(this.ApiUrl + "getproductList?category_id=" + categoryId + "&subcategory_id=" + subcategoryId).map((res: any) => {
@@ -213,4 +230,31 @@ export class AuthProvider {
     });
   }
 
+  getAddressList(test: any): Observable<any> {
+    return this.http.get(this.ApiUrl + "getAddressList?api_token=" + test).map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  CheckemailExist(test: any): Observable<any> {
+    return this.http.get(this.ApiUrl + "CheckEmailExist?email=" + test).map((res: any) => {
+      return <any>res;
+    });
+  }  
+
+  SetReserveQuantity(detail: any): Observable<any> {
+    let cartList1 = {
+      cartlist: detail
+    };
+    return this.http.post(this.ApiUrl + "SetReserveQuantity", cartList1).map((res: any) => {
+      return <any>res;
+    });
+  } 
+
+  Setorderdetail(detail: any): Observable<any> {
+  
+    return this.http.post(this.ApiUrl + "placeOrder", detail).map((res: any) => {
+      return <any>res;
+    });
+  } 
 }

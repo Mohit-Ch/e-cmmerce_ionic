@@ -77,12 +77,7 @@ page-cart {
     .text-right{
         text-align: right;
     }
-    .text-denger{
-        color: red;
-    }
-    .text-primary{
-        color: #488aff;
-    }
+    
     ion-footer {
         padding: 5px;
        // margin-bottom: 55px;
@@ -106,4 +101,11 @@ page-cart {
         
     }
     
+}
+
+.text-denger{
+    color: red;
+}
+.text-primary{
+    color: #488aff;
 }

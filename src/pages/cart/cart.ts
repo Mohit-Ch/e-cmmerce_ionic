@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProductDetailPage } from '../product-detail/product-detail';
+import { OrderInfoPage } from '../order-info/order-info';
 
 
 @Component({
@@ -26,11 +27,18 @@ export class CartPage {
   discountdescription: any = "";
   showProcidebutton: any = true;
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, public toastCtrl: ToastController, public model: ModalController) {
-
+    this.getcartdetail();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
+    
+  }
+  ngOnInIt()
+  {
+    this.getcartdetail();
+  }
+  ionViewWillEnter(){
     this.getcartdetail();
   }
 
@@ -40,6 +48,7 @@ export class CartPage {
       if (cart != undefined) {
         this.cartdetail = cart;
         this.subtotal = 0;
+        this.productList=[];
         this.auth.getcartDetail(this.cartdetail).subscribe(res => {
           loading.dismiss();
           if (res["status"] == 'success') {
@@ -62,12 +71,18 @@ export class CartPage {
                   this.total += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                 }
                 x["quantity"] = x["OrderQuantity"];
-                if (x["OutOfOrder"] == true) {
+                if (x["OutOfOrder"] == true) {                 
                   this.showProcidebutton = false;
                 }
               });
             }
+            else{
+              this.showProcidebutton = false;
+            }
 
+          }
+          else{
+            this.showProcidebutton = false;
           }
         })
       }
@@ -88,7 +103,7 @@ export class CartPage {
                 this.discountdescription = res["data"];
                 let minumamount = res["data"]['minOrderAmount'];
                 let maxdiscountamoumt = res["data"]['maxDiscountAmount'];
-                let description = res["data"]['description'];
+               // let description = res["data"]['description'];
                 let type = res["data"][' type '];
                 if (this.subtotal > minumamount) {
                   if (type == 'percentage') {
@@ -204,6 +219,28 @@ export class CartPage {
       position: "top"
     });
     toast.present();
+  }
+
+  checkout()
+  {
+    this.navCtrl.push(OrderInfoPage,
+      {
+        orderDetail:this.productList,
+        couponcode: this.coupanCode,
+        subtotal:this.subtotal,
+        Discount:this.Discount,
+        total:this.total
+      });
+  }
+
+  doRefresh(event)
+  {
+    let env=this;
+    env.getcartdetail();
+    setTimeout(() => {
+  
+      event.complete();
+    }, 2000);
   }
 
 }

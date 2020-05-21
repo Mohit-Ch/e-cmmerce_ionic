@@ -20,6 +20,11 @@ import { AuthProvider } from '../providers/auth/auth';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { OrderInfoPage } from '../pages/order-info/order-info';
+import { LoginModelPage } from '../pages/login-model/login-model';
+import { OrderConformPage } from '../pages/order-conform/order-conform';
+import { AddressModelPage } from '../pages/address-model/address-model';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,11 @@ import { IonicStorageModule } from '@ionic/storage';
     ProductPage,
     ProductDetailPage,
     EmailPage,
-    CartPage
+    CartPage,
+    OrderInfoPage,
+    LoginModelPage,
+    OrderConformPage,
+    AddressModelPage
   ],
   imports: [
     BrowserModule,
@@ -54,13 +63,18 @@ import { IonicStorageModule } from '@ionic/storage';
     ProductPage,
     ProductDetailPage,
     EmailPage,
-    CartPage
+    CartPage,
+    OrderInfoPage,
+    LoginModelPage,
+    OrderConformPage,
+    AddressModelPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    UniqueDeviceID
   ]
 })
 export class AppModule {}

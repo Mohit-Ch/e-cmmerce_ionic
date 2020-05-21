@@ -25,7 +25,6 @@ export class SubcategoryPage {
   categoryName: any = '';
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider) {
     this.categoryId = this.navParams.data["CategoryId"];
-    console.log(this.categoryId);
     this.getsubCategoryList();
     this.categoryName = this.navParams.data['name'];
   }
