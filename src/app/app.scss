@@ -109,6 +109,23 @@ ion-card, .card-md, .card-ios {
     text-align: center
 }
 
+.text-right {
+    text-align: right;
+}
+
+.text-danger{
+    color: red !important;
+}
+.text-primary{
+    color: #488aff;
+}
+.row {
+    align-items: center;
+}
+.paddingLR15 {
+    padding-left: 15px;;
+    padding-right: 15px;;
+}
 
 .w100 {
     width: 100%;

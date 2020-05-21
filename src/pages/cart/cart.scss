@@ -100,12 +100,29 @@ page-cart {
         }
         
     }
+    ion-card.card {
+        border-radius: 8px !important;
+    }
+    .grid {
+        display: flex;
+        min-height: calc(100vh - 160px);
+        .marginT-auto {
+            margin-top: auto;
+        }
+        h6 {
+            margin: 2px 0;
+        }
+    }
+    .positionR {
+        position: relative;
+    }
+    .close-button-container {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        .close-button {
+            padding: 8px;
+        }
+    }
     
-}
-
-.text-denger{
-    color: red;
-}
-.text-primary{
-    color: #488aff;
 }

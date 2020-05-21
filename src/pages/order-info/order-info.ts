@@ -219,7 +219,7 @@ export class OrderInfoPage {
   orderPlaced() {
     let env = this;
     if (!this.validation()) {
-      env.presentAlert("Please enter all mandatory field!");
+      env.presentAlert("Please enter all mandatory (*) field!");
       return;
     }
 
@@ -253,17 +253,17 @@ export class OrderInfoPage {
       console.log(x);
       if (x["status"] = "success") {
         this.cartdata.forEach(y => {
-          this.auth.setorderincart(y['itemId'],y['itemeditionId'],0);
+          this.auth.setorderincart(y['itemId'], y['itemeditionId'], 0);
         });
         this.navCtrl.push(OrderConformPage, {
           orderId: x["orderId"],
-          status:"success"
+          status: "success"
         })
         let data = { foo: "bar" };
         this.viewCtrl.dismiss(data);
-      }else{
+      } else {
         this.navCtrl.push(OrderConformPage, {
-          status:"error"
+          status: "error"
         })
       }
     })

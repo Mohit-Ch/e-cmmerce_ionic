@@ -6,7 +6,12 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Check Out</ion-title>
+    <ion-title>
+      <button class="back-button-manual" ion-button clear large color="dark">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+      <span class="vertically-align">Delivery Address</span>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,114 +21,114 @@
 
     <ion-row>
       <ion-col col-12 *ngIf="showlogin">
-        <h6>Click <a color="primary" (click)="login()"> here to Login </a> if you are registered or continue as a guest
-          below:</h6>
+        <p class="flex-container justify-space-between">
+          Continue as a guest user <span>OR</span> <a color="primary" (click)="login()"> Login </a>
+        </p>
       </ion-col>
     </ion-row>
 
-   
-      <ion-item>
-        <ion-label stacked text-wrap>Full Name <span color="danger" class="text-denger">*</span>: </ion-label>
-        <ion-input type="text" [(ngModel)]="name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>Phone <span color="danger" class="text-denger">*</span>: </ion-label>
-        <ion-input type="number" [(ngModel)]="Phone"  max="10"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>Email <span color="danger" class="text-denger" *ngIf="ShowMenditoryData">*</span>: </ion-label>
-        <ion-input type="text" [(ngModel)]="email" (change)="ValidateEmail($event)" ></ion-input>
-      </ion-item>
-      <p *ngIf="emailvalid"  color="danger" class="text-denger">
-       {{messageEmail}}
-       </p>
-      <ion-item *ngIf="ShowMenditoryData">
-        <ion-label stacked text-wrap >password <span color="danger" class="text-denger" >*</span>: </ion-label>
-        <ion-input type="text" [(ngModel)]="password" min="6" (change)="checkLengthpass()" ></ion-input>
-      </ion-item>
-      <p *ngIf="passwordV"  color="danger" class="text-denger">
-        Password MinimunLength is 6 character
-      </p>
-      <ion-item>
-        <ion-label stacked text-wrap>Company Name: </ion-label>
-        <ion-input type="text" [(ngModel)]="CompanyName" ></ion-input>
-      </ion-item>
 
-      <ion-item *ngIf="showlogin">
-        <ion-label>Create a Account?</ion-label>
-        <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData"></ion-checkbox>
-      </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>Full Name <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>Phone <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="number" [(ngModel)]="Phone" max="10"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>Email <span color="danger" class="text-danger" *ngIf="ShowMenditoryData">*</span>:
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="email" (change)="ValidateEmail($event)"></ion-input>
+    </ion-item>
+    <p *ngIf="emailvalid" color="danger" class="text-danger">
+      {{messageEmail}}
+    </p>
 
-      <ion-item>
-        <ion-label stacked text-wrap>Additional Information: </ion-label>
-        <ion-textarea type="text"  [(ngModel)]="AdditionalInfo"placeholder="Special request or notes for delivery">
-        </ion-textarea>
-      </ion-item>
-      <hr />
-      <ion-item>
-        <h3> Address Detail</h3>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>Address1 <span color="danger" class="text-denger">*</span>: </ion-label>
-        <ion-input type="text"  [(ngModel)]="address1" placeholder="Ex:- Shuwaikh Ind'I (2)">
-        </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>City <span color="danger" class="text-denger">*</span>: </ion-label>
-        <ion-input type="text"  [(ngModel)]="city" placeholder="">
-        </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>Country: </ion-label>
-        <ion-input type="text" disabled="true" [(ngModel)]="country" placeholder="Kuwait" value="Kuwait">
-        </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked text-wrap>Postal Code <span color="danger" class="text-denger">*</span>: </ion-label>
-        <ion-input type="text" [(ngModel)]="postalCode" placeholder="Ex:- 110051">
-        </ion-input>
-      </ion-item>
-      <hr/>
-      <h4>Order Detail</h4>
-        <ion-list *ngIf="productList.length>0"> 
-          <ion-row *ngFor="let item of productList">
-            <ion-col col-8>
-                {{item.itemName}} ,{{item.Edition[0].itemEditionName}},{{item.quantity}}
-            </ion-col>
-            <ion-col col-4>
-                KWD  {{item.Edition[0].price}}
-            </ion-col>
-          </ion-row>
-          <hr/>
-          <ion-row >
-            <ion-col col-8>
-              Sub Total
-            </ion-col>
-            <ion-col col-4>
-                KWD  {{subtotal}}
-            </ion-col>
-          </ion-row>
-          <ion-row >
-            <ion-col col-8>
-               Discount
-            </ion-col>
-            <ion-col col-4>
-                KWD  {{Discount}}
-            </ion-col>
-          </ion-row>
-          <ion-row >
-            <ion-col col-8>
-               Total
-            </ion-col>
-            <ion-col col-4>
-                KWD  {{total}}
-            </ion-col>
-          </ion-row>
-        </ion-list>
-      <ion-item class="no-border paddingR0">
-        <button ion-button color="primary" (click)="orderPlaced()" block> Place Order </button>
-      </ion-item>
-   
+    <ion-item>
+      <ion-label stacked text-wrap>Company Name: </ion-label>
+      <ion-input type="text" [(ngModel)]="CompanyName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked text-wrap> Address <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="text" [(ngModel)]="address1">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>City <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="text" disabled="true" [(ngModel)]="city" value="Kuwait">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>Country </ion-label>
+      <ion-input type="text" disabled="true" [(ngModel)]="country" value="Kuwait">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked text-wrap>Postal Code <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="text" [(ngModel)]="postalCode" placeholder="Ex:- 110051">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked text-wrap>Special request or notes for delivery </ion-label>
+      <ion-textarea type="text" [(ngModel)]="AdditionalInfo" placeholder="">
+      </ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="showlogin">
+      <ion-label>
+        Want to Create an account! <br />
+        <small>Select the checkbox to create your account.</small>
+      </ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="ShowMenditoryData">
+      <ion-label stacked text-wrap>password <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-input type="text" [(ngModel)]="password" min="6" (change)="checkLengthpass()"></ion-input>
+    </ion-item>
+    <p *ngIf="passwordV" color="danger" class="text-danger">
+      Password MinimunLength is 6 character
+    </p>
+
+    <hr />
+    <h4>Order Detail</h4>
+    <ion-list *ngIf="productList.length>0">
+      <ion-row *ngFor="let item of productList">
+        <ion-col col-8>
+          {{item.itemName}} <br />
+          <small>{{item.Edition[0].itemEditionName}},{{item.quantity}}</small>
+        </ion-col>
+        <ion-col col-4>
+          KWD {{item.Edition[0].price}}
+        </ion-col>
+      </ion-row>
+      <hr *ngIf="Discount != 0" />
+      <ion-row *ngIf="Discount != 0">
+        <ion-col col-8>
+          Sub Total
+        </ion-col>
+        <ion-col col-4>
+          KWD {{subtotal}}
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="Discount != 0">
+        <ion-col col-8>
+          Discount
+        </ion-col>
+        <ion-col col-4>
+          KWD {{Discount}}
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
   </ion-list>
 
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <button class="flex1" ion-button color='primary' (click)="orderPlaced()" block> Place Order </button>
+    <h3 class="flex2 text-primary no-margin text-right"><small>KWD </small> {{total}}</h3>
+  </ion-toolbar>
+</ion-footer>

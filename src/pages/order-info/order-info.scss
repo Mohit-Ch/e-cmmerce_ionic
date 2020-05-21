@@ -1,3 +1,40 @@
 page-order-info {
-
+    .justify-space-between {
+        justify-content: space-between;
+    }
+    .item {
+        padding: 0;
+    }
+    .item-checkbox .item-inner {
+        border-bottom: none !important;
+    }
+    ion-footer {
+        padding: 5px;
+       // margin-bottom: 55px;
+        background: #fff;
+        .toolbar-background-md {
+            border-color: #ffffff;
+            background: #ffffff;
+        }
+        .toolbar-content {
+            display: flex;
+            align-items: center;
+            h5 {
+                display: inline-block;
+            }
+            .flex2 {
+                flex: 2;
+            }
+            .flex1 {
+                flex: 1;
+            }
+        }
+        
+    }
+    .vertically-align {
+        vertical-align: sub;
+    }
+    .back-button-manual {
+        padding: 0 16px 0 0 !important;
+    }
 }

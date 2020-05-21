@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController, App } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProductDetailPage } from '../product-detail/product-detail';
 import { OrderInfoPage } from '../order-info/order-info';
-
 
 @Component({
   selector: 'page-cart',
@@ -26,19 +25,18 @@ export class CartPage {
   coupanShowMessagesuccess: any = false;
   discountdescription: any = "";
   showProcidebutton: any = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, public toastCtrl: ToastController, public model: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, public toastCtrl: ToastController, public model: ModalController, public app: App) {
     this.getcartdetail();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
-    
+
   }
-  ngOnInIt()
-  {
+  ngOnInIt() {
     this.getcartdetail();
   }
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getcartdetail();
   }
 
@@ -48,7 +46,7 @@ export class CartPage {
       if (cart != undefined) {
         this.cartdetail = cart;
         this.subtotal = 0;
-        this.productList=[];
+        this.productList = [];
         this.auth.getcartDetail(this.cartdetail).subscribe(res => {
           loading.dismiss();
           if (res["status"] == 'success') {
@@ -71,17 +69,17 @@ export class CartPage {
                   this.total += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                 }
                 x["quantity"] = x["OrderQuantity"];
-                if (x["OutOfOrder"] == true) {                 
+                if (x["OutOfOrder"] == true) {
                   this.showProcidebutton = false;
                 }
               });
             }
-            else{
+            else {
               this.showProcidebutton = false;
             }
 
           }
-          else{
+          else {
             this.showProcidebutton = false;
           }
         })
@@ -103,7 +101,7 @@ export class CartPage {
                 this.discountdescription = res["data"];
                 let minumamount = res["data"]['minOrderAmount'];
                 let maxdiscountamoumt = res["data"]['maxDiscountAmount'];
-               // let description = res["data"]['description'];
+                // let description = res["data"]['description'];
                 let type = res["data"][' type '];
                 if (this.subtotal > minumamount) {
                   if (type == 'percentage') {
@@ -190,7 +188,7 @@ export class CartPage {
   }
 
   addtoCartClick(_event: any, item) {
-    let _self=this
+    let _self = this
     if (item['quantity'] <= item['maxquantity']) {
       this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
       setTimeout(function () {
@@ -203,7 +201,7 @@ export class CartPage {
   }
 
   RemoveToCart(item) {
-    let _self=this
+    let _self = this
     this.auth.setorderincart(item["id"], item["EditionId"], '0');
     setTimeout(function () {
       console.log("data");
@@ -221,24 +219,22 @@ export class CartPage {
     toast.present();
   }
 
-  checkout()
-  {
-    this.navCtrl.push(OrderInfoPage,
+  checkout() {
+    this.app.getRootNav().setRoot(OrderInfoPage,
       {
-        orderDetail:this.productList,
+        orderDetail: this.productList,
         couponcode: this.coupanCode,
-        subtotal:this.subtotal,
-        Discount:this.Discount,
-        total:this.total
+        subtotal: this.subtotal,
+        Discount: this.Discount,
+        total: this.total
       });
   }
 
-  doRefresh(event)
-  {
-    let env=this;
+  doRefresh(event) {
+    let env = this;
     env.getcartdetail();
     setTimeout(() => {
-  
+
       event.complete();
     }, 2000);
   }

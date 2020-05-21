@@ -12,9 +12,13 @@
 
 <ion-content padding>
   <ion-row *ngIf="status=='success'">
-    <h4>Your Order is placed</h4>
-    <ion-col>
-      Order Id {{orderId}}
+    <ion-col col-12>
+      <h4 class="text-center">Your Order is placed successfully.</h4>
+      <p class="text-center">We will contact you soon.</p>
+    </ion-col>
+    <ion-col col-12>
+      <p class="text-center">Your Order Id is</p>
+      <h4 class="text-center">{{orderId}}</h4>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="status=='error'">

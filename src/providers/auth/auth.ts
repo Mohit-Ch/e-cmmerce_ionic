@@ -28,10 +28,10 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-    this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+    // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-    // this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
+    this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
@@ -129,9 +129,9 @@ export class AuthProvider {
             console.log(itemId)
             console.log(itemeditionId)
             let index = cartList.find(x => x.itemId == itemId && x.itemeditionId == itemeditionId);
-          
+
             if (index !== null) {
-              cartList=cartList.filter(x => x.itemId != itemId && x.itemeditionId != itemeditionId);
+              cartList = cartList.filter(x => x.itemId != itemId && x.itemeditionId != itemeditionId);
             }
           }
           else {
@@ -167,12 +167,12 @@ export class AuthProvider {
   }
 
   // set Address Storage
-  public SetAddressStorage( address:any, city:any, country:any,postalcode:any) {
+  public SetAddressStorage(address: any, city: any, country: any, postalcode: any) {
     let Address = {
       address: address,
       city: city,
       country: country,
-      postalcode:postalcode
+      postalcode: postalcode
     }
     this.storage.set("Address", Address);
   }
@@ -240,7 +240,7 @@ export class AuthProvider {
     return this.http.get(this.ApiUrl + "CheckEmailExist?email=" + test).map((res: any) => {
       return <any>res;
     });
-  }  
+  }
 
   SetReserveQuantity(detail: any): Observable<any> {
     let cartList1 = {
@@ -249,12 +249,12 @@ export class AuthProvider {
     return this.http.post(this.ApiUrl + "SetReserveQuantity", cartList1).map((res: any) => {
       return <any>res;
     });
-  } 
+  }
 
   Setorderdetail(detail: any): Observable<any> {
-  
+
     return this.http.post(this.ApiUrl + "placeOrder", detail).map((res: any) => {
       return <any>res;
     });
-  } 
+  }
 }
