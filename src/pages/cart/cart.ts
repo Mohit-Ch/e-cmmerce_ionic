@@ -203,8 +203,7 @@ export class CartPage {
   RemoveToCart(item) {
     let _self = this
     this.auth.setorderincart(item["id"], item["EditionId"], '0');
-    setTimeout(function () {
-      console.log("data");
+    setTimeout(function () {      
       _self.getcartdetail();
     }, 1000);
   }

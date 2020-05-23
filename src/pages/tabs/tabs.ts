@@ -36,5 +36,9 @@ export class TabsPage {
   ngOnDestroy() {
     clearInterval(this.cardnoshow);
   }
+  doChange($event)
+  {
+    $event.setRoot($event.root);
+  }
 
 }

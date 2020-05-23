@@ -74,10 +74,8 @@ export class AddressModelPage {
 
   getaddressforstorage()
   {
-    console.log("data");
     this.auth.getAddressStorage().then(x=>
       {
-        console.log(x);
         if(x!=undefined)
         {
           this.addressStorage={
