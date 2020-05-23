@@ -85,25 +85,29 @@ export class OrderInfoPage {
 
   }
 
+  ionViewWillEnter() {
+    if( this.api_token!=undefined){
+      this.auth.GetAddressexit( this.api_token).subscribe(x=>{
+        if(x['status']=='success')
+        {
+          if(x['data']==true)
+          {
+            this.existaddress=true;
+           this.showAddressPopup();
+          }
+          else{
+            this.getaddressforstorage();
+          }
+        }
+      })
+    }
+    else{
+     this.getaddressforstorage();
+    }
+  }
+
   ionViewDidLoad() {
-   if( this.api_token!=undefined){
-     this.auth.GetAddressexit( this.api_token).subscribe(x=>{
-       if(x['status']=='success')
-       {
-         if(x['data']==true)
-         {
-           this.existaddress=true;
-          this.showAddressPopup();
-         }
-         else{
-           this.getaddressforstorage();
-         }
-       }
-     })
-   }
-   else{
-    this.getaddressforstorage();
-   }
+  
     
   }
 

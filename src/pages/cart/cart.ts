@@ -34,7 +34,7 @@ export class CartPage {
 
   }
   ngOnInIt() {
-    this.getcartdetail();
+   // this.getcartdetail();
   }
   ionViewWillEnter() {
     this.getcartdetail();
