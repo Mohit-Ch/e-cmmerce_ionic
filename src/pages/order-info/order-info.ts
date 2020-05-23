@@ -74,11 +74,11 @@ export class OrderInfoPage {
       }
     )
 
-    if (platform.is('cordova')) {
+    if (platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
+         
           this.deviceid = uuid;
-          console.log(uuid)
         })
         .catch((error: any) => console.log(error));
     }
@@ -243,6 +243,10 @@ export class OrderInfoPage {
           this.country = x['address'].country;
           this.postalCode = x['address'].postal_code;
           this.addressId = x['address'].id;
+          this.name = x['address'].name;
+          this.email = x['address'].email;
+          this.Phone = x['address'].phone_no;
+          this.CompanyName = x['address'].company_name;
         }
       }
     });
@@ -256,7 +260,7 @@ export class OrderInfoPage {
       return;
     }
 
-    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode);
+    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode,this.name,this.email,this.Phone,this.CompanyName);
     let detail = {
       name: this.name,
       email: this.email == undefined ? "" : this.email,
@@ -284,7 +288,7 @@ export class OrderInfoPage {
     this.auth.Setorderdetail(detail).subscribe(x => {
       Loader.dismiss();
       console.log(x);
-      if (x["status"] = "success") {
+      if (x["code"] ==200) {
         this.cartdata.forEach(y => {
           this.auth.setorderincart(y['itemId'], y['itemeditionId'], 0);
         });

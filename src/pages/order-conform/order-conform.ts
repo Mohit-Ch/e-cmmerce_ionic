@@ -19,6 +19,7 @@ export class OrderConformPage {
   orderId:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public app:App) {
     this.status = this.navParams.data["status"];
+    console.log(this.status)
     if(this.status=="success")
     {
       this.orderId= this.navParams.data["orderId"];

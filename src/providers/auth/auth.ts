@@ -167,12 +167,16 @@ export class AuthProvider {
   }
 
   // set Address Storage
-  public SetAddressStorage(address: any, city: any, country: any, postalcode: any) {
+  public SetAddressStorage(address: any, city: any, country: any, postalcode: any, name:any, email,Phone,CompanyName) {
     let Address = {
       address: address,
       city: city,
       country: country,
-      postalcode: postalcode
+      postalcode: postalcode,
+      name: name,
+      email: email,
+      Phone: Phone,
+      companyName: CompanyName,
     }
     this.storage.set("Address", Address);
   }

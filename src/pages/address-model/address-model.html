@@ -15,6 +15,9 @@
           <ion-card-title>Card Title</ion-card-title>
         </ion-card-header> -->
         <ion-card-content (click)="onclickgrid(item)">
+          {{item.name}}, {{item.email}},
+          {{item.phone_no}}
+
           {{item.address1}} ,{{item.city}},{{item.country}},{{item.postal_code}}
         </ion-card-content>
       </ion-card>

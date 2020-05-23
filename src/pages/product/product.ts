@@ -76,7 +76,8 @@ export class ProductPage {
     });
   }
   addtoCartClick(item: any) {
-    if(item["quantity"]<=item["maxquantity"]){
+    console.log(item)
+    if(+item["quantity"]<= +item["maxquantity"]){
        this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
     }else{
       this.presentToast("This much quantity is not available")
