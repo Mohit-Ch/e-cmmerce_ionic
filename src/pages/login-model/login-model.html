@@ -8,11 +8,13 @@
         <!-- <p class="logo">
           <img src="assets/imgs/logo.png" alt="">
         </p> -->
+        <h2>Login</h2>
         <form [formGroup]="myForm" padding-horizontal>
           <ion-list class="noBoxshadow">
             <ion-item class="noBorder">
               <ion-label stacked color="primary">Email</ion-label>
-              <ion-input class="paddingL8" formControlName="email" type="email" autocomplete="off" (keyup.enter)="login()"></ion-input>
+              <ion-input class="paddingL8" formControlName="email" type="email" autocomplete="off"
+                (keyup.enter)="login()"></ion-input>
             </ion-item>
             <p ion-text color="red" class="warning" *ngIf="myForm.get('email').hasError('required') && submitt == true">
               Email is required!
@@ -25,7 +27,8 @@
           <ion-list class="noBoxshadow">
             <ion-item>
               <ion-label stacked color="primary">Password</ion-label>
-              <ion-input class="paddingL8" formControlName="password" type="password" (keyup.enter)="login()"></ion-input>
+              <ion-input class="paddingL8" formControlName="password" type="password" (keyup.enter)="login()">
+              </ion-input>
             </ion-item>
             <p ion-text color="red" class="warning" *ngIf="
           myForm.get('password').hasError('required') && submitt == true
@@ -52,7 +55,7 @@
             <button type="submit" ion-button block (click)="login()" color="buttonColor">
               Login
             </button>
-          </ion-item>          
+          </ion-item>
           <!-- <ion-item class="noBorder" text-center>
             <p ion-text color="primary" class="createAccount" (click)="registration()">
               <small ion-text color="danger"> Don't have an account? </small><br>
@@ -60,7 +63,7 @@
             </p>
             <br />
           </ion-item> -->
-          
+
         </form>
         <!-- <p ion-text text-wrap color="primary" class="createAccount" no-margin text-center>
           <small> <span (click)="forgotPassword()"> Forget your password? <br></span> Having Trouble? <a
