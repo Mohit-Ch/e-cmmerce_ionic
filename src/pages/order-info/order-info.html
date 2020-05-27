@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <button class="back-button-manual" ion-button clear large color="dark">
+      <button class="back-button-manual" ion-button clear large color="dark" (click)="backbutton()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </button>
       <span class="vertically-align">Delivery Address</span>
@@ -23,6 +23,15 @@
       <ion-col col-12 *ngIf="showlogin">
         <p class="flex-container justify-space-between">
           Continue as a guest user <span>OR</span> <a color="primary" (click)="login()"> Login </a>
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12 *ngIf="existaddress">
+        <p class="flex-container justify-space-between">
+          <a color="primary" (click)="showAddressPopup()">  Select Delivery Address </a>
+        
         </p>
       </ion-col>
     </ion-row>

@@ -28,10 +28,10 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-    // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+  //   this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-    this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
+      this.ApiUrl = "https://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
@@ -167,12 +167,16 @@ export class AuthProvider {
   }
 
   // set Address Storage
-  public SetAddressStorage(address: any, city: any, country: any, postalcode: any) {
+  public SetAddressStorage(address: any, city: any, country: any, postalcode: any, name:any, email,Phone,CompanyName) {
     let Address = {
       address: address,
       city: city,
       country: country,
-      postalcode: postalcode
+      postalcode: postalcode,
+      name: name,
+      email: email,
+      Phone: Phone,
+      companyName: CompanyName,
     }
     this.storage.set("Address", Address);
   }
@@ -254,6 +258,22 @@ export class AuthProvider {
   Setorderdetail(detail: any): Observable<any> {
 
     return this.http.post(this.ApiUrl + "placeOrder", detail).map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  GetAddressexit(detail: any): Observable<any> {
+
+    return this.http.get(this.ApiUrl + "CheckAddressExist?api_token=" + detail).map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  ReleaseReserveQuantity(detail: any): Observable<any> {
+    let cartList1 = {
+      cartlist: detail
+    };
+    return this.http.post(this.ApiUrl + "RevertReserveQuantity", cartList1).map((res: any) => {
       return <any>res;
     });
   }

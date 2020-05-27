@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ViewController, Platform } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, ViewController, Platform, App } from 'ionic-angular';
 import { LoginModelPage } from '../login-model/login-model';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AddressModelPage } from '../address-model/address-model';
 import { OrderConformPage } from '../order-conform/order-conform';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the OrderInfoPage page.
@@ -44,11 +45,11 @@ export class OrderInfoPage {
   total: any;
   cartdata: any;
   deviceid: any = "123456";
+  existaddress:any=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider, private alert: AlertController, private viewCtrl: ViewController,
-    private uniquid: UniqueDeviceID, private platform: Platform) {
+    private uniquid: UniqueDeviceID, private platform: Platform,  public app: App ) {
     if (this.auth.authUser != null) {
       this.api_token = this.auth.authUser["api_token"];
-      console.log(this.api_token);
       if (this.api_token != null && this.api_token != undefined) {
         this.showlogin = false;
       }
@@ -73,20 +74,56 @@ export class OrderInfoPage {
       }
     )
 
-    if (platform.is('cordova')) {
+    if (platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
+         
           this.deviceid = uuid;
-          console.log(uuid)
         })
         .catch((error: any) => console.log(error));
     }
 
   }
 
+  ionViewWillEnter() {
+    if( this.api_token!=undefined){
+      this.auth.GetAddressexit( this.api_token).subscribe(x=>{
+        if(x['status']=='success')
+        {
+          if(x['data']==true)
+          {
+            this.existaddress=true;
+           this.showAddressPopup();
+          }
+          else{
+            this.getaddressforstorage();
+          }
+        }
+      })
+    }
+    else{
+     this.getaddressforstorage();
+    }
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderInfoPage');
-    this.showAddressPopup();
+  
+    
+  }
+
+  getaddressforstorage()
+  {
+    this.auth.getAddressStorage().then(x=>
+      {
+        if(x!=undefined)
+        {
+          this.existaddress=true;
+          this.showAddressPopup();
+        }
+        else{
+          this.existaddress=false;
+        }
+      })
   }
 
   validation() {
@@ -178,7 +215,6 @@ export class OrderInfoPage {
   }
 
   checkLengthpass() {
-    console.log(this.password.length);
     if (this.password.length < 6) {
       this.passwordV = true;
     }
@@ -201,6 +237,7 @@ export class OrderInfoPage {
   }
 
   showAddressPopup() {
+
     var addressModel = this.modal.create(AddressModelPage);
     addressModel.onDidDismiss(x => {
       if (x["foo"] === "success") {
@@ -210,6 +247,10 @@ export class OrderInfoPage {
           this.country = x['address'].country;
           this.postalCode = x['address'].postal_code;
           this.addressId = x['address'].id;
+          this.name = x['address'].name;
+          this.email = x['address'].email;
+          this.Phone = x['address'].phone_no;
+          this.CompanyName = x['address'].company_name;
         }
       }
     });
@@ -223,7 +264,7 @@ export class OrderInfoPage {
       return;
     }
 
-    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode);
+    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode,this.name,this.email,this.Phone,this.CompanyName);
     let detail = {
       name: this.name,
       email: this.email == undefined ? "" : this.email,
@@ -251,17 +292,19 @@ export class OrderInfoPage {
     this.auth.Setorderdetail(detail).subscribe(x => {
       Loader.dismiss();
       console.log(x);
-      if (x["status"] = "success") {
+      if (x["code"] ==200) {
         this.cartdata.forEach(y => {
           this.auth.setorderincart(y['itemId'], y['itemeditionId'], 0);
         });
+        this.app.getRootNav().setRoot(TabsPage);
         this.navCtrl.push(OrderConformPage, {
           orderId: x["orderId"],
           status: "success"
         })
-        let data = { foo: "bar" };
-        this.viewCtrl.dismiss(data);
+        // let data = { foo: "bar" };
+        // this.viewCtrl.dismiss(data);
       } else {
+        this.app.getRootNav().setRoot(TabsPage);
         this.navCtrl.push(OrderConformPage, {
           status: "error"
         })
@@ -276,5 +319,17 @@ export class OrderInfoPage {
       buttons: ["Ok"]
     });
     alert.present();
+  }
+
+  backbutton()
+  {
+    this.auth.getorderincart().then(
+      x => {
+        this.cartdata = x;
+        this.auth.ReleaseReserveQuantity(this.cartdata).subscribe(x => {
+          this.app.getRootNav().setRoot(TabsPage);
+        })
+      }
+    )
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, App } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the OrderConformPage page.
@@ -16,8 +17,9 @@ export class OrderConformPage {
 
   status:any="error";
   orderId:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app:App) {
     this.status = this.navParams.data["status"];
+    console.log(this.status)
     if(this.status=="success")
     {
       this.orderId= this.navParams.data["orderId"];
@@ -26,6 +28,11 @@ export class OrderConformPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderConformPage');
+  }
+
+  continue()
+  {
+    this.app.getRootNav().setRoot(TabsPage);
   }
 
 }

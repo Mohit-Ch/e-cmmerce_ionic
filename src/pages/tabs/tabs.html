@@ -1,5 +1,5 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabIcon="ios-home-outline"></ion-tab>
+<ion-tabs selectedIndex="0" (ionChange)="doChange($event)">
+  <ion-tab [root]="tab1Root" tabIcon="ios-home-outline"  id="tab1"></ion-tab>
   <ion-tab [root]="tab2Root" tabIcon="ios-person-outline"></ion-tab>
   <ion-tab [root]="tab3Root" tabIcon="ios-mail-open-outline"></ion-tab>
   <ion-tab [root]="tab4Root" tabIcon="ios-people-outline"></ion-tab>

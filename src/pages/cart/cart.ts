@@ -34,7 +34,7 @@ export class CartPage {
 
   }
   ngOnInIt() {
-    this.getcartdetail();
+   // this.getcartdetail();
   }
   ionViewWillEnter() {
     this.getcartdetail();
@@ -189,13 +189,15 @@ export class CartPage {
 
   addtoCartClick(_event: any, item) {
     let _self = this
-    if (item['quantity'] <= item['maxquantity']) {
+   
+    if ( +item['quantity'] <= +item['maxquantity']) {
       this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
       setTimeout(function () {
         _self.getcartdetail();
       }, 1000);
     }
     else {
+      console.log(item);
       this.presentToast("This much quantity is not available")
     }
   }
@@ -203,8 +205,7 @@ export class CartPage {
   RemoveToCart(item) {
     let _self = this
     this.auth.setorderincart(item["id"], item["EditionId"], '0');
-    setTimeout(function () {
-      console.log("data");
+    setTimeout(function () {      
       _self.getcartdetail();
     }, 1000);
   }

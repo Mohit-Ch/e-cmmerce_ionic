@@ -22,7 +22,10 @@
     </ion-col>
   </ion-row>
   <ion-row *ngIf="status=='error'">
-    <h4>some error Accured while order placing</h4>
+    <h4>Some error Accured while order placing </h4>
+  </ion-row>
+  <ion-row>
+    <button ion-button color='light' (click)="continue()" block> Continue Shopping </button>
   </ion-row>
 
 </ion-content>
