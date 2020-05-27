@@ -20,12 +20,18 @@
       <p class="text-center">Your Order ID is</p>
       <h4 class="text-center">{{orderId}}</h4>
     </ion-col>
+    <ion-col>
+      <button ion-button color='light' (click)="continue()" block> Continue Shopping </button>
+    </ion-col>
   </ion-row>
   <ion-row *ngIf="status=='error'">
-    <h4>Some error Accured while order placing </h4>
+    <ion-col col-12>
+      <h4>Some error occured while placing the order, please try again </h4>
+    </ion-col>
+    <ion-col col-12>
+      <button ion-button color='light' (click)="continue()" block> Go back </button>
+    </ion-col>
   </ion-row>
-  <ion-row>
-    <button ion-button color='light' (click)="continue()" block> Continue Shopping </button>
-  </ion-row>
+
 
 </ion-content>
