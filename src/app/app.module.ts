@@ -25,6 +25,8 @@ import { LoginModelPage } from '../pages/login-model/login-model';
 import { OrderConformPage } from '../pages/order-conform/order-conform';
 import { AddressModelPage } from '../pages/address-model/address-model';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { TooltipsModule } from 'ionic-tooltips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
     CommonModule ,
     IonicModule.forRoot(MyApp),    
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TooltipsModule.forRoot(),
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

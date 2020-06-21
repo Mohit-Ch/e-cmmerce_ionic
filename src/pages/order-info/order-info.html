@@ -87,11 +87,11 @@
     </ion-item>
 
     <ion-item *ngIf="showlogin">
-      <ion-label>
+      <ion-label tooltip="creating an account will help you to check and replace orders">
         Want to Create an account! <br />
         <small>Select the checkbox to create your account.</small>
       </ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData"></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData" ></ion-checkbox>
     </ion-item>
     <ion-item *ngIf="ShowMenditoryData">
       <ion-label stacked text-wrap>password <span color="danger" class="text-danger">*</span>: </ion-label>

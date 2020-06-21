@@ -13,6 +13,13 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid class="no-padding" *ngIf=" productList!=undefine && productList.length>0">
+    <ion-row *ngIf="subtotal<50"  class="text-danger">
+      <ion-col>
+        <p >
+          A minimun total purchase amount of KWD 50.000 is required to checkout.
+        </p>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col col-12 class="autocomplete">
         <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
@@ -133,13 +140,7 @@
           <small>KWD</small> <b>{{Discount}}</b>
         </h6>
       </ion-col>
-    </ion-row>
-    <!-- <ion-row>
-      <ion-col col-12>
-        <button class="add-product" ion-button color='primary'  expand="block"
-        size='lg' fill="outline" (click)="RemoveToCart(item)">Remove</button>
-      </ion-col>
-    </ion-row> -->
+    </ion-row>   
   </ion-grid>
   <ion-grid *ngIf=" cartdetail.length==0">
     <ion-row>
@@ -159,7 +160,7 @@
     <button class="flex1" ion-button color='primary' disabled expand="block" size='lg' fill="outline">Continue</button>
   </ion-toolbar>
   <ion-toolbar *ngIf="showProcidebutton==true">
-    <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true" (click)="checkout()" expand="block"
+    <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true && subtotal>=50" (click)="checkout()" expand="block"
       size='lg' fill="outline">Continue</button>
     <h5 class="flex2 text-primary text-right"><small>KWD </small> {{total}}</h5>
   </ion-toolbar>

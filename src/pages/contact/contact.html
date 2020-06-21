@@ -7,5 +7,52 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Under construction!</h2>
+  <ion-list [formGroup]="myForm">
+    <ion-item>
+      <ion-label floating text-wrap>Name <span color="danger"> *</span> </ion-label>
+      <ion-input type="text" formControlName="Name"></ion-input>
+      
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+      *ngIf="myForm.get('Name').hasError('required') && submitt == true">
+      Name is required!
+    </ion-item>
+    <ion-item>
+      <ion-label floating text-wrap>Email <span color="danger"> *</span> </ion-label>
+      <ion-input type="email" formControlName="Email"></ion-input>
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+      *ngIf="myForm.get('Email').hasError('required') && submitt == true">
+      Email is required!
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+    *ngIf="myForm.get('Email').hasError('pattern') && submitt == true">
+    Email is not right!
+  </ion-item>
+    <ion-item>
+      <ion-label floating text-wrap>Phone No <span color="danger"> *</span></ion-label>
+      <ion-input type="text" formControlName="Phone" ></ion-input>
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+      *ngIf="myForm.get('Phone').hasError('required') && submitt == true">
+      Phone is required!
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+      *ngIf="myForm.get('Phone').hasError('pattern') && submitt == true">
+      Phone is right!
+    </ion-item>
+    <ion-item>
+      <ion-label floating text-wrap>Message <span color="danger"> *</span></ion-label>
+      <ion-textarea type="text" rows="8" formControlName="Message" ></ion-textarea>
+    </ion-item>
+    <ion-item ion-text color="red" class="warning noBorder"
+      *ngIf="myForm.get('Message').hasError('required') && submitt == true">
+      Message is required!
+    </ion-item>
+    <ion-item class="noBorder MB8">
+      <button type="submit" ion-button block (click)="savedata()"  color="buttonColor">
+        Send
+      </button>
+    </ion-item>
+  </ion-list>
 </ion-content>
