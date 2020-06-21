@@ -1,6 +1,3 @@
-<div float-end (click)="dismiss()" class="end">
-  <ion-icon name="close" class="cross"></ion-icon>
-</div>
 <ion-content text-wrap padding text-center class="shortModal">
   <ion-grid class="userSession">
     <ion-row justify-content-center>
@@ -8,9 +5,8 @@
         <!-- <p class="logo">
           <img src="assets/imgs/logo.png" alt="">
         </p> -->
-        <h2>Login</h2>
         <form [formGroup]="myForm" padding-horizontal>
-          <ion-list class="noBoxshadow">
+          <ion-list class="noBoxshadow marginB15 marginT15">
             <ion-item class="noBorder">
               <ion-label stacked color="primary">Email</ion-label>
               <ion-input class="paddingL8" formControlName="email" type="email" autocomplete="off"
@@ -51,11 +47,18 @@
               <ion-input></ion-input>
             </ion-item>
           </ion-list>
-          <ion-item class="noBorder MB8">
-            <button type="submit" ion-button block (click)="login()" color="buttonColor">
-              Login
-            </button>
-          </ion-item>
+          <ion-row>
+            <ion-col col-6>
+              <button type="submit" block ion-button (click)="login()" color="primary">
+                Login
+              </button>
+            </ion-col>
+            <ion-col col-6>
+              <button ion-button block (click)="dismiss()">
+                cancel
+              </button>
+            </ion-col>
+          </ion-row>
           <!-- <ion-item class="noBorder" text-center>
             <p ion-text color="primary" class="createAccount" (click)="registration()">
               <small ion-text color="danger"> Don't have an account? </small><br>
