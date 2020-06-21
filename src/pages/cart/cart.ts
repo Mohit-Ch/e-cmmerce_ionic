@@ -25,6 +25,7 @@ export class CartPage {
   coupanShowMessagesuccess: any = false;
   discountdescription: any = "";
   showProcidebutton: any = true;
+  showminamountMes:boolean=true;
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, public toastCtrl: ToastController, public model: ModalController, public app: App) {
     this.getcartdetail();
   }

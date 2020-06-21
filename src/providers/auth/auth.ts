@@ -28,10 +28,10 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-  //   this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+     this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-      this.ApiUrl = "https://golden-handle.com/laravel_account/api/mobileapp/";
+    //  this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
@@ -274,6 +274,12 @@ export class AuthProvider {
       cartlist: detail
     };
     return this.http.post(this.ApiUrl + "RevertReserveQuantity", cartList1).map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  SendEmail(detail :any): Observable<any>{
+    return this.http.post(this.ApiUrl + "ContectUsemail", detail).map((res: any) => {
       return <any>res;
     });
   }
