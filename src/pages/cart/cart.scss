@@ -49,20 +49,20 @@ page-cart {
         width: 70%;
     }
     ion-input.couponcode {
-        margin: 5px;
-        max-width: 30vh;
         border: 1px solid #ccc;
-        border-radius: 10px;
         margin-right: 15px;
         display: flex;
+        padding: 0 10px;
         input.native-input {
-            text-align: center !important;
+            text-align: left !important;
             padding: 10px 8px !important;
+            text-transform: uppercase;
         }
         .text-input-md, .text-input-ios {
-            text-align: center;
+            text-align: left;
             margin: 8px 4px;
             width: 100%;
+            text-transform: uppercase;
         }
     }
     .apply-coupon{
@@ -105,7 +105,7 @@ page-cart {
     }
     .grid {
         display: flex;
-        min-height: calc(100vh - 160px);
+        min-height: calc(100vh - 186px);
         .marginT-auto {
             margin-top: auto;
         }
@@ -118,8 +118,8 @@ page-cart {
     }
     .close-button-container {
         position: absolute;
-        top: 6px;
-        right: 6px;
+        top: -2px;
+        right: 0px;
         .close-button {
             padding: 8px;
         }

@@ -64,7 +64,7 @@ export class CategoryPage {
       });
     }
     else {
-      this.presentToast("We don't have any subCategory in this category");
+      this.presentToast("All the products are out of stock");
     }
 
   }

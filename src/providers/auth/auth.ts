@@ -28,10 +28,10 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-     this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+    // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-    //  this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
+    this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
@@ -167,7 +167,7 @@ export class AuthProvider {
   }
 
   // set Address Storage
-  public SetAddressStorage(address: any, city: any, country: any, postalcode: any, name:any, email,Phone,CompanyName) {
+  public SetAddressStorage(address: any, city: any, country: any, postalcode: any, name: any, email, Phone, CompanyName) {
     let Address = {
       address: address,
       city: city,
@@ -278,7 +278,7 @@ export class AuthProvider {
     });
   }
 
-  SendEmail(detail :any): Observable<any>{
+  SendEmail(detail: any): Observable<any> {
     return this.http.post(this.ApiUrl + "ContectUsemail", detail).map((res: any) => {
       return <any>res;
     });

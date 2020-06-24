@@ -13,23 +13,43 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid class="no-padding" *ngIf=" productList!=undefine && productList.length>0">
-    <ion-row *ngIf="subtotal<50"  class="text-danger">
+    <ion-row *ngIf="subtotal<50" class="text-danger">
       <ion-col>
-        <p >
+        <p>
           A minimun total purchase amount of KWD 50.000 is required to checkout.
         </p>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-12 class="autocomplete">
-        <ion-searchbar placeholder="Search products" [(ngModel)]="searchText" (ionInput)="search($event)" debounce=500>
-        </ion-searchbar>
-        <ion-list *ngIf="searchItem!=undefine && searchItem.length>0 && ShowSearchList">
-          <ion-item *ngFor="let res of searchItem" (click)="dataclick(res)">
-            <img [src]="res.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
-            {{res.itemName}}
-          </ion-item>
-        </ion-list>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-12>
+            <p>
+              <small>Do you have any coupon code?</small>
+            </p>
+            <div class="flex-container">
+              <ion-input type='text' class="couponcode" width="10%" max="6" placeholder="Promo Codea"
+                [(ngModel)]="coupanCode"></ion-input>
+              <button class="apply-coupon" ion-button color='primary' right size='sm' fill="outline"
+                (click)="Applycouponcode()">Apply</button>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 left>
+            <ion-row *ngIf="coupanShowMessagedeny">
+              <ion-col col-12 class="text-right text-danger">
+                Coupon is not Valid!
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="coupanShowMessagesuccess">
+              <ion-col col-12 class="text-right text-primary">
+                coupon applied ASDFFC
+                Note* Max Discount Amount is 100 and Minium order Amount 20
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -80,39 +100,7 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    <!-- <ion-row>
-      <ion-col col-12>
-        <ion-row>
-          <ion-col col-12>
-            <h5 class="marginB10"><b>Apply Coupan </b></h5>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-12>
-            <div class="flex-container">
-              <ion-input type='text' class="couponcode" width="10%" max="6" [(ngModel)]="coupanCode"></ion-input>
-              <button class="apply-coupon" ion-button color='primary' right expand="block" size='lg' fill="outline"
-                (click)="Applycouponcode()">Apply </button>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-12 left >
-            <ion-row *ngIf="coupanShowMessagedeny">
-              <ion-col col-12 class="text-right text-danger">
-                Coupon is not Valid!
-              </ion-col>
-            </ion-row>
-            <ion-row *ngIf="coupanShowMessagesuccess">
-              <ion-col col-12 class="text-right text-primary" >
-                coupon applied ASDFFC
-                Note* Max Discount Amount is 100 and Minium order Amount 20
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row> -->
+
 
     <ion-row class="marginT-auto" *ngIf=" Discount != 0">
       <ion-col col-12>
@@ -140,7 +128,7 @@
           <small>KWD</small> <b>{{Discount}}</b>
         </h6>
       </ion-col>
-    </ion-row>   
+    </ion-row>
   </ion-grid>
   <ion-grid *ngIf=" cartdetail.length==0">
     <ion-row>
@@ -160,8 +148,8 @@
     <button class="flex1" ion-button color='primary' disabled expand="block" size='lg' fill="outline">Continue</button>
   </ion-toolbar>
   <ion-toolbar *ngIf="showProcidebutton==true">
-    <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true && subtotal>=50" (click)="checkout()" expand="block"
-      size='lg' fill="outline">Continue</button>
+    <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true && subtotal>=50"
+      (click)="checkout()" expand="block" size='lg' fill="outline">Continue</button>
     <h5 class="flex2 text-primary text-right"><small>KWD </small> {{total}}</h5>
   </ion-toolbar>
 </ion-footer>
