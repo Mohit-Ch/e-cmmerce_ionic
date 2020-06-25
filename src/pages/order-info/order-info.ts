@@ -68,9 +68,9 @@ export class OrderInfoPage {
     this.auth.getorderincart().then(
       x => {
         this.cartdata = x;
-        this.auth.SetReserveQuantity(this.cartdata).subscribe(x => {
+        // this.auth.SetReserveQuantity(this.cartdata).subscribe(x => {
 
-        })
+        // })
       }
     )
 
@@ -81,6 +81,15 @@ export class OrderInfoPage {
           this.deviceid = uuid;
         })
         .catch((error: any) => console.log(error));
+    } else if(platform.is('ios'))
+    {
+      this.uniquid.get()
+      .then((uuid: any) => {
+       
+        this.deviceid = uuid;
+      })
+      .catch((error: any) => console.log(error));
+
     }
 
   }
@@ -323,13 +332,14 @@ export class OrderInfoPage {
 
   backbutton()
   {
-    this.auth.getorderincart().then(
-      x => {
-        this.cartdata = x;
-        this.auth.ReleaseReserveQuantity(this.cartdata).subscribe(x => {
-          this.app.getRootNav().setRoot(TabsPage);
-        })
-      }
-    )
+    this.app.getRootNav().setRoot(TabsPage);
+    // this.auth.getorderincart().then(
+    //   x => {
+    //     this.cartdata = x;
+    //     this.auth.ReleaseReserveQuantity(this.cartdata).subscribe(x => {
+    //       this.app.getRootNav().setRoot(TabsPage);
+    //     })
+    //   }
+    // )
   }
 }
