@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ViewController, ModalController } from 'ionic-angular';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 /**
  * Generated class for the LoginModelPage page.
@@ -26,7 +27,8 @@ export class LoginModelPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
     private auth: AuthProvider,
     private alert: AlertController,
-    private viewCtrl:ViewController) {
+    private viewCtrl:ViewController,
+    public modal: ModalController) {
     this.initializeForm();
 
   }
@@ -84,8 +86,9 @@ export class LoginModelPage {
             }
           },
           error => {
-            if (error == "Login Email or Password are incorrect") {
-              env.presentAlert(error);
+            console.log(error);
+            if (error.code == "101") {
+              env.presentAlert(error.message);
             } else if (error == "Unable to login to your account") {
               env.presentAlert(error);
             }
@@ -93,10 +96,10 @@ export class LoginModelPage {
               env.presentAlert("Something went wrong");
             }
 
-            // Set Error In Error Log Table
-            let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            let req = { 'err_text': JSON.stringify(error) + "Line No 95", 'file_path': 'login.ts', 'method': 'login', 'parent_method': "0", 'error_time': date, 'type': 'mobile' }
-            this.auth.errorLog(req).subscribe();
+            // // Set Error In Error Log Table
+            // let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            // let req = { 'err_text': JSON.stringify(error) + "Line No 95", 'file_path': 'login.ts', 'method': 'login', 'parent_method': "0", 'error_time': date, 'type': 'mobile' }
+            // this.auth.errorLog(req).subscribe();
           }
         )
         .catch(e => {
@@ -125,6 +128,13 @@ export class LoginModelPage {
   dismiss() {
     let data = { foo: "bar" };
     this.viewCtrl.dismiss(data);
+  }
+
+  forgotPassword()
+  {
+    let forgotPassword = this.modal.create(ForgotPasswordPage);   
+    forgotPassword.present();
+
   }
 
 

@@ -27,6 +27,8 @@ import { AddressModelPage } from '../pages/address-model/address-model';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { TooltipsModule } from 'ionic-tooltips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OrderInfoPage,
     LoginModelPage,
     OrderConformPage,
-    AddressModelPage
+    AddressModelPage,
+    ForgotPasswordPage,
+    ChangePasswordPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OrderInfoPage,
     LoginModelPage,
     OrderConformPage,
-    AddressModelPage
+    AddressModelPage,
+    ForgotPasswordPage,
+    ChangePasswordPage
   ],
   providers: [
     StatusBar,

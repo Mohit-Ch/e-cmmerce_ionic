@@ -28,7 +28,7 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-    // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+     // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
     this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
@@ -62,7 +62,7 @@ export class AuthProvider {
       this.http.post(this.ApiUrl + "Userlogin", postData, {}).subscribe(
         data => {
           if (data["status"] == "error") {
-            reject(data["data"]);
+            reject(data);
           } else {
             // We are checking wheather user has submitted the all details or not
             if (data["data"].graduation_year == 0 || data["data"].university == 0 || data["data"].is_temp_pass == 1) {
@@ -283,4 +283,64 @@ export class AuthProvider {
       return <any>res;
     });
   }
+
+  contectInfo(): Observable<any> {
+    return this.http.get(this.ApiUrl + "AboutUsInfo").map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  public clear() {
+  
+    this.storage.clear().then(() => {
+      this.authUser = null;
+    });
+   
+  }
+
+   // Get Reset Token when user rest the password 
+   GetResetToken(RQ: any): Observable<string> {
+    return this.http
+      .post(this.ApiUrl + "password/email", RQ)
+      .map((res: any) => {
+        return <string>res["data"];
+      })
+      .catch((error: any) => {
+        
+       
+        return Observable.throw(new Error(error.status));
+      });
+  }
+
+  // Reset password coll
+  ResetPassword(RQ: any): Observable<string> {
+    return this.http
+      .post(this.ApiUrl + "password/reset", RQ)
+      .map((res: any) => {
+        return <string>res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(new Error(error.status));
+      });
+  }
+
+  // This is for forgot password coll
+  forgotPassword(RQ: any): Observable<string> {
+    return this.http
+      .post(this.ApiUrl + "password/forget", RQ)
+      .map((res: any) => {
+        return <string>res["data"];
+      })
+      .catch((error: any) => {
+        return Observable.throw(new Error(error.status));
+      });
+  }
+
+   // Get productList
+   getpastOrderList(deciceId: any, Token: any): Observable<any> {
+    return this.http.get(this.ApiUrl + "getPastOrder?deviceId=" + deciceId + "&api_token=" + Token).map((res: any) => {
+      return <any>res;
+    });
+  }
+
 }

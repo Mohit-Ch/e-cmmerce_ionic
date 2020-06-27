@@ -35,10 +35,10 @@ export class CartPage {
 
   }
   ngOnInIt() {
-   // this.getcartdetail();
+   //this.getcartdetail();
   }
   ionViewWillEnter() {
-    this.getcartdetail();
+    //this.getcartdetail();
   }
 
   getcartdetail() {
@@ -48,6 +48,7 @@ export class CartPage {
         this.cartdetail = cart;
         this.subtotal = 0;
         this.productList = [];
+        this.total=0;
         this.auth.getcartDetail(this.cartdetail).subscribe(res => {
           loading.dismiss();
           if (res["status"] == 'success') {
@@ -66,6 +67,7 @@ export class CartPage {
                   }
                   x["EditionId"] = x["Edition"][0]["id"];
                   x["maxquantity"] = x["Edition"][0]["quantity"];
+                  console.log(x["OrderQuantity"]);
                   this.subtotal += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                   this.total += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                 }
@@ -91,35 +93,43 @@ export class CartPage {
     });
   }
 
+minumamount:any;
+maxdiscountamoumt:any;
   Applycouponcode() {
+    
     if (this.coupanCode != undefined) {
       if (this.coupanCode.length == 6) {
+        console.log(this.coupanCode);
         this.auth.getCouponDetail(this.coupanCode).subscribe(res => {
           if (res["code"] == 200) {
             if (res["status"] == 'success') {
               if (res["data"] != '') {
 
                 this.discountdescription = res["data"];
-                let minumamount = res["data"]['minOrderAmount'];
-                let maxdiscountamoumt = res["data"]['maxDiscountAmount'];
+                this.minumamount = res["data"]['minOrderAmount'];
+                this. maxdiscountamoumt = res["data"]['maxDiscountAmount'];
                 // let description = res["data"]['description'];
-                let type = res["data"][' type '];
-                if (this.subtotal > minumamount) {
+                let type = res['data']['type'];
+                console.log(type); 
+                if (this.subtotal > this.minumamount) {
                   if (type == 'percentage') {
+                    console.log(this.subtotal);
+                    console.log(this.minumamount);
                     let amount = (this.subtotal * res["data"]['amount']) / 100;
-                    if (amount <= maxdiscountamoumt) {
+                    console.log(amount);
+                    if (amount <= this.maxdiscountamoumt) {
                       this.total = this.subtotal - amount;
                     }
                     else {
-                      this.total = this.subtotal - maxdiscountamoumt;
+                      this.total = this.subtotal - this.maxdiscountamoumt;
                     }
                   }
                   else if (type == 'fixed') {
-                    if (res["data"]['amount'] <= maxdiscountamoumt) {
+                    if (res["data"]['amount'] <= this.maxdiscountamoumt) {
                       this.total = this.subtotal - res["data"]['amount'];
                     }
                     else {
-                      this.total = this.subtotal - maxdiscountamoumt;
+                      this.total = this.subtotal - this.maxdiscountamoumt;
                     }
                   }
                   this.coupanShowMessagedeny = false;
@@ -129,6 +139,12 @@ export class CartPage {
                   this.coupanShowMessagedeny = true;
                   this.coupanShowMessagesuccess = false;
                 }
+              }else if (res["status"] == 'success') {
+                this.coupanShowMessagedeny = true;
+                this.coupanShowMessagesuccess = false;
+              }
+              else {
+                this.coupanShowMessagedeny = false;
               }
             }
             else {
