@@ -74,14 +74,14 @@ export class OrderInfoPage {
       }
     )
 
-    if (platform.is('android')) {
+    if (this.platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
          
           this.deviceid = uuid;
         })
         .catch((error: any) => console.log(error));
-    } else if(platform.is('ios'))
+    } else if(this.platform.is('ios'))
     {
       this.uniquid.get()
       .then((uuid: any) => {
@@ -296,11 +296,10 @@ export class OrderInfoPage {
       deviceId: this.deviceid
 
     }
-    console.log(detail);
+    
     let Loader = this.auth.loadginFactory();
     this.auth.Setorderdetail(detail).subscribe(x => {
       Loader.dismiss();
-      console.log(x);
       if (x["code"] ==200) {
         this.cartdata.forEach(y => {
           this.auth.setorderincart(y['itemId'], y['itemeditionId'], 0);
@@ -312,6 +311,8 @@ export class OrderInfoPage {
         })
         // let data = { foo: "bar" };
         // this.viewCtrl.dismiss(data);
+      } else if(x["code"] ==205){
+        this.presentAletNav(x["message"])
       } else {
         this.app.getRootNav().setRoot(TabsPage);
         this.navCtrl.push(OrderConformPage, {
@@ -341,5 +342,18 @@ export class OrderInfoPage {
     //     })
     //   }
     // )
+  }
+
+   // Alert any Error occured 
+   presentAletNav(error: any) {
+    let alert = this.alert.create({
+      subTitle: error,
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          this.app.getRootNav().setRoot(TabsPage);
+        }}]
+    });
+    alert.present();
   }
 }

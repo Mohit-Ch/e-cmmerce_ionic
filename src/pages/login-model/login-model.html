@@ -1,4 +1,14 @@
-<ion-content text-wrap padding text-center class="shortModal">
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" clear>
+        <ion-icon name="close" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content text-wrap padding text-center>
   <ion-grid class="userSession">
     <ion-row justify-content-center>
       <ion-col>
@@ -68,11 +78,9 @@
           </ion-item> -->
 
         </form>
-        <!-- <p ion-text text-wrap color="primary" class="createAccount" no-margin text-center>
-          <small> <span (click)="forgotPassword()"> Forget your password? <br></span> Having Trouble? <a
-              [href]="'mailto:' + 'help@jobtiviti.com' + '?Subject=Trouble%20in%20login'">
-              <small> Contact Us </small></a> </small>
-        </p> -->
+        <p ion-text text-wrap color="primary" class="createAccount" no-margin text-center>
+          <small> <span (click)="forgotPassword()"> Forget your password?</span> </small>
+        </p>
       </ion-col>
     </ion-row>
   </ion-grid>

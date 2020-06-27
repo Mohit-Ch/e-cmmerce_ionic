@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row class="align-start">
+  <ion-row class="align-start" *ngIf="showlogin">
     <ion-col col-9>
       <h4>
         From current device <br>
@@ -13,7 +13,57 @@
       </h4>
     </ion-col>
     <ion-col col-3 class="text-right">
-      <button class="add-product" ion-button color='primary' size='sm' fill="outline">Login</button>
+      <button class="add-product" (click)="Login()" ion-button color='primary' size='sm' fill="outline">Login</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="align-start" *ngIf="!showlogin">
+    <ion-col col-9>
+      <h4>
+        Setting 
+      </h4>
+    </ion-col>
+    <ion-col col-3 class="text-right">
+      <button class="add-product" (click)="presentActionSheet()" ion-button color='primary' size='sm' fill="outline">Setting</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-12 class="no-padding">
+      <ion-list *ngIf="productList.length>0">
+        <div *ngFor="let item of productList">
+          <ion-row class="w100">
+            <ion-col col-4 class="align-product-image" (click)="ProductDetail(item.id)">
+              <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
+            </ion-col>
+            <ion-col col-8>
+              <h5 class="marginB10"><b>{{item.itemName}}</b></h5>
+              <!-- <ion-item *ngIf="item.EditionType!=0"> -->
+              <ion-item>
+                <p>
+                  {{item.Edition.itemEditionName}}
+                </p>
+              </ion-item>
+              <div class="flex-container">
+                <ion-input *ngIf="item.ShowAddbutton==true" type='numeric' class="quantity" [(ngModel)]="item.quantity"
+                  width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                <h6 class="no-margin">KWD {{item.price}}</h6>
+              </div>
+              <div class="text-center">
+                <button class="add-product" ion-button color='primary' *ngIf="item.ShowAddbutton==true" expand="block"
+                  size='lg' fill="outline" (click)="addtoCartClick(item)">Add</button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <hr />
+        </div>
+      </ion-list>
+      <ion-list *ngIf="productList.length==0">
+        <ion-card>
+          <ion-row class="w100">
+            No Item to be showen
+          </ion-row>
+        </ion-card>
+      </ion-list>
     </ion-col>
   </ion-row>
 
