@@ -115,13 +115,11 @@ export class HomePage {
   getproductList() {
     let loading = this.auth.loadginFactory();
     let token=this.api_token==undefined?" ":this.api_token;
-    this.deviceid='123456';
+    this.deviceid= this.deviceid==undefined?' ':this.deviceid;
     this.auth.getpastOrderList(this.deviceid, token).subscribe(res => {
       loading.dismiss();
-      console.log(res);
       if (res["status"] == 'success') {
         if (res["data"] != '') {
-          console.log(res);
           this.productList = res["data"];
 
           this.productList.forEach(x => {
