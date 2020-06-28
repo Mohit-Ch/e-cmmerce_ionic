@@ -22,8 +22,15 @@ export class CategoryPage {
   searchItem: any = [];
   searchText: any = "";
   ShowSearchList: any = false;
+  logo:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider,
     public toastCtrl: ToastController) {
+     
+       this.auth.getlogoStorage().then(x => {
+        if (x != undefined) {
+          this.logo=x;
+        }
+      })
   }
 
   ionViewDidLoad() {

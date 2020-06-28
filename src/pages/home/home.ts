@@ -31,14 +31,14 @@ export class HomePage {
         this.showlogin = true;
       }
 
-    if (this.platform.is('android')) {
+    if (platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
          
           this.deviceid = uuid;
         })
         .catch((error: any) => console.log(error));
-    } else if(this.platform.is('ios'))
+    } else if(platform.is('ios'))
     {
       this.uniquid.get()
       .then((uuid: any) => {

@@ -52,6 +52,8 @@
                 <div class="text-center">
                   <button class="add-product" ion-button color='primary' *ngIf="item.ShowAddbutton==true" expand="block"
                     size='lg' fill="outline" (click)="addtoCartClick(item)">Add</button>
+                    <button class="add-product" ion-button color='danger' *ngIf="item.ShowAddbutton==false" expand="block"
+                    size='lg' fill="outline" >Out of stock</button>
                 </div>
               </ion-col>
             </ion-row>
