@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="white">
     <ion-toolbar>
+      <ion-buttons start>
+        <button ion-button (click)="clickRefresh()" clear>
+          <ion-icon name="refresh"></ion-icon>
+        </button>
+      </ion-buttons>
       <ion-title>
         Cart
       </ion-title>
@@ -15,9 +20,9 @@
   <ion-grid class="no-padding" *ngIf=" productList!=undefine && productList.length>0">
     <ion-row *ngIf="subtotal<50" class="text-danger">
       <ion-col>
-        <p>
-          A minimun total purchase amount of KWD 50.000 is required to checkout.
-        </p>
+        <h4>
+          A minimum total purchase amount of 50 KWD is required for home delivery.
+        </h4>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -28,7 +33,7 @@
               <small>Do you have any coupon code?</small>
             </p>
             <div class="flex-container">
-              <ion-input type='text' class="couponcode" width="10%" max="6" placeholder="Promo Codea"
+              <ion-input type='text' class="couponcode" width="10%" max="6" placeholder="Promo Code"
                 [(ngModel)]="coupanCode"></ion-input>
               <button class="apply-coupon" ion-button color='primary' right size='sm' fill="outline"
                 (click)="Applycouponcode()">Apply</button>
@@ -74,7 +79,7 @@
                 </ion-item>
                 <div class="flex-container">
                   <ion-input *ngIf="item.ShowAddbutton==true" type='number' class="quantity" [(ngModel)]="item.quantity"
-                    (ionChange)="addtoCartClick($event, item)" width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                  (ionBlur)="addtoCartClick($event, item)" (keyup)="onKeyUp($event, item)"width="10%" min="0" [max]="item.maxquantity"></ion-input>
                   <h6 class="no-margin">KWD {{item.price}}</h6>
                 </div>
                 <p class="text-danger" *ngIf="item.OutOfOrder">
@@ -133,7 +138,10 @@
   <ion-grid *ngIf=" cartdetail.length==0">
     <ion-row>
       <ion-col>
-        Your cart is empty!
+        <h4  class="flex2 text-dange">
+          Your cart is empty!
+        </h4>
+        
       </ion-col>
     </ion-row>
   </ion-grid>

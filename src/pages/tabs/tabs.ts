@@ -21,7 +21,7 @@ export class TabsPage {
   countcartShow: any = 0;
   cardnoshow: any;
   constructor(public auth: AuthProvider) {
-
+    this.getlogo();
   }
 
   ngOnInit() {
@@ -38,7 +38,17 @@ export class TabsPage {
   }
   doChange($event)
   {
-    $event.setRoot($event.root);
+    if($event.id=="t0-0"){
+      $event.setRoot($event.root);
+    }
+    
+  }
+  getlogo()
+  {
+    this.auth.getcompanyLogo().subscribe(x=>{
+      
+      this.auth.SetlogoStorage(x['data']['logo']);
+    })
   }
 
 }

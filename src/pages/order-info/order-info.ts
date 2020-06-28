@@ -313,6 +313,9 @@ export class OrderInfoPage {
         // this.viewCtrl.dismiss(data);
       } else if(x["code"] ==205){
         this.presentAletNav(x["message"])
+      }
+      else if(x["code"] ==206){
+        this.presentAlert(x["message"])
       } else {
         this.app.getRootNav().setRoot(TabsPage);
         this.navCtrl.push(OrderConformPage, {

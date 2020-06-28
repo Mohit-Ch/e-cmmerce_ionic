@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, ModalController, App } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ModalController, App, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProductDetailPage } from '../product-detail/product-detail';
 import { OrderInfoPage } from '../order-info/order-info';
@@ -26,8 +26,8 @@ export class CartPage {
   discountdescription: any = "";
   showProcidebutton: any = true;
   showminamountMes:boolean=true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, public toastCtrl: ToastController, public model: ModalController, public app: App) {
-    this.getcartdetail();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,private alert: AlertController, public toastCtrl: ToastController, public model: ModalController, public app: App) {
+   // this.getcartdetail();
   }
 
   ionViewDidLoad() {
@@ -38,7 +38,7 @@ export class CartPage {
    //this.getcartdetail();
   }
   ionViewWillEnter() {
-    //this.getcartdetail();
+    this.getcartdetail();
   }
 
   getcartdetail() {
@@ -206,16 +206,38 @@ maxdiscountamoumt:any;
 
   addtoCartClick(_event: any, item) {
     let _self = this
-   
-    if ( +item['quantity'] <= +item['maxquantity']) {
-      this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
-      setTimeout(function () {
-        _self.getcartdetail();
-      }, 1000);
-    }
-    else {
-      console.log(item);
-      this.presentToast("This much quantity is not available")
+    if(item['quantity'].trim()!=""){
+      if ( +item['quantity'] <= +item['maxquantity']) {
+        this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+        setTimeout(function () {
+          _self.getcartdetail();
+        }, 1000);
+      }
+      else {
+      
+        this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
+        item['quantity']=item['maxquantity'];
+      }
+   }
+  }
+  onKeyUp(_event: any, item)
+  {
+   if(_event.keyCode==13)
+   {
+      let _self = this
+      if(item['quantity'].trim()!=""){
+        if ( +item['quantity'] <= +item['maxquantity']) {
+          this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+          setTimeout(function () {
+            _self.getcartdetail();
+          }, 1000);
+        }
+        else {
+        
+          this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
+          item['quantity']=item['maxquantity'];
+        }
+      }
     }
   }
 
@@ -255,6 +277,19 @@ maxdiscountamoumt:any;
 
       event.complete();
     }, 2000);
+  }
+
+   clickRefresh(event) {
+    let env = this;
+    env.getcartdetail();   
+  }
+   // Alert any Error occured 
+   presentAlert(error: any) {
+    let alert = this.alert.create({
+      subTitle: error,
+      buttons: ["Ok"]
+    });
+    alert.present();
   }
 
 }

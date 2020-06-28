@@ -95,7 +95,7 @@
     </ion-item>
     <ion-item *ngIf="ShowMenditoryData">
       <ion-label stacked text-wrap>password <span color="danger" class="text-danger">*</span>: </ion-label>
-      <ion-input type="text" [(ngModel)]="password" min="6" (change)="checkLengthpass()"></ion-input>
+      <ion-input type="password" [(ngModel)]="password" min="6" (change)="checkLengthpass()"></ion-input>
     </ion-item>
     <p *ngIf="passwordV" color="danger" class="text-danger">
       Password MinimunLength is 6 character

@@ -31,7 +31,7 @@ export class AuthProvider {
      // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-    this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
+     this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
     //  this.PublicUrl = "http://golden-handle.com/";
 
     this.storage
@@ -341,6 +341,24 @@ export class AuthProvider {
     return this.http.get(this.ApiUrl + "getPastOrder?deviceId=" + deciceId + "&api_token=" + Token).map((res: any) => {
       return <any>res;
     });
+  }
+
+  getcompanyLogo(): Observable<any> {
+    return this.http.get(this.ApiUrl + "getlogo").map((res: any) => {
+      return <any>res;
+    });
+  }
+
+  // set logo Storage
+  public SetlogoStorage(logo: any) {
+  
+    this.storage.set("logo", logo);
+  }
+
+  // Get logo Storage
+  public getlogoStorage() {
+    const val = this.storage.get("logo");
+    return val;
   }
 
 }
