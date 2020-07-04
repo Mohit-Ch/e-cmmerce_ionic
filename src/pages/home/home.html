@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-buttons start>
       <button ion-button (click)="clickRefresh()" clear>
-        <ion-icon name="refresh"></ion-icon>
+        <ion-icon class="font-big" name="refresh"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Previous orders</ion-title>
@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row class="align-start" *ngIf="showlogin">
     <ion-col col-9>
       <h4>
@@ -18,21 +21,24 @@
       </h4>
     </ion-col>
     <ion-col col-3 class="text-right">
-      <button class="add-product" (click)="Login()" ion-button color='primary' size='sm' fill="outline">Login</button>
+      <button  (click)="Login()" ion-button color='primary' size='sm'>Login</button>
     </ion-col>
   </ion-row>
 
   <ion-row class="align-start" *ngIf="!showlogin">
     <ion-col col-9>
       <h4>
-        Setting 
+       Hello 
       </h4>
+      <p class="text-captalize">{{name}}</p>
     </ion-col>
     <ion-col col-3 class="text-right">
-      <button class="add-product" (click)="presentActionSheet()" ion-button color='primary' size='sm' fill="outline">Setting</button>
+      <button (click)="presentActionSheet()" ion-button clear  color='primary' >
+        <ion-icon class="font-big" name="cog"></ion-icon>
+</button>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row class="padding-top16">
     <ion-col col-12 class="no-padding">
       <ion-list *ngIf="productList.length>0">
         <div *ngFor="let item of productList">
@@ -41,13 +47,13 @@
               <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
             </ion-col>
             <ion-col col-8>
-              <h5 class="marginB10"><b>{{item.itemName}}</b></h5>
+              <h5 class="marginB10" (click)="ProductDetail(item.id)"><b>{{item.itemName}}</b></h5>
               <!-- <ion-item *ngIf="item.EditionType!=0"> -->
-              <ion-item>
+              <div>
                 <p>
                   {{item.Edition.itemEditionName}}
                 </p>
-              </ion-item>
+              </div>
               <div class="flex-container">
                 <ion-input *ngIf="item.ShowAddbutton==true" type='numeric' class="quantity" [(ngModel)]="item.quantity"
                   width="10%" min="0" [max]="item.maxquantity"></ion-input>
@@ -64,7 +70,7 @@
       </ion-list>
       <ion-list *ngIf="productList.length==0">
         <ion-card>
-          <ion-row class="w100">
+          <ion-row class="w100" padding>
             No Item to be showen
           </ion-row>
         </ion-card>

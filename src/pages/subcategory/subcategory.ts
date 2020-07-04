@@ -87,4 +87,14 @@ export class SubcategoryPage {
     });
   }
 
+  doRefresh(event) {
+    let env = this;
+    env.getsubCategoryList();
+    setTimeout(() => {
+
+      event.complete();
+    }, 2000);
+  }
+
+
 }

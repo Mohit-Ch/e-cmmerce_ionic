@@ -16,11 +16,13 @@ export class HomePage {
   api_token:any;
   showlogin:any=true;
   productList:any=[];
+  name:any="";
   constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider, private alert: AlertController,
     private uniquid: UniqueDeviceID, private platform: Platform,  public app: App, public actionSheetCtrl: ActionSheetController) {
 
       if (this.auth.authUser != null) {
         this.api_token = this.auth.authUser["api_token"];
+        this.name=this.auth.authUser["name"]
         if (this.api_token != null && this.api_token != undefined) {
           this.showlogin = false;
         }
@@ -65,12 +67,6 @@ export class HomePage {
           text: 'Log out',
           handler: () => {
             this.logout();
-          }
-        }, {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]
@@ -152,4 +148,14 @@ export class HomePage {
   {
     this.getproductList();
   }
+
+  doRefresh(event) {
+    let env = this;
+    env.getproductList();
+    setTimeout(() => {
+
+      event.complete();
+    }, 2000);
+  }
+
 }

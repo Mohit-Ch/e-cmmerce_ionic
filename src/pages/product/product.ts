@@ -140,4 +140,14 @@ export class ProductPage {
       productId: data["id"]
     });
   }
+
+  doRefresh(event) {
+    let env = this;
+    env.getproductList();
+    setTimeout(() => {
+
+      event.complete();
+    }, 2000);
+  }
+
 }

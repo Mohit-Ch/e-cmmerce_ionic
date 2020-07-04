@@ -118,4 +118,13 @@ export class CategoryPage {
       productId: data["id"]
     });
   }
+
+  doRefresh(event) {
+    let env = this;
+    env.GetCategoryList();
+    setTimeout(() => {
+
+      event.complete();
+    }, 2000);
+  }
 }
