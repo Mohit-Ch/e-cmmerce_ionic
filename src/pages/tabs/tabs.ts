@@ -38,7 +38,7 @@ export class TabsPage {
   }
   doChange($event)
   {
-    if($event.id=="t0-0"){
+    if($event.id=="t0-0" || $event.id=="t0-1"){
       $event.setRoot($event.root);
     }
     

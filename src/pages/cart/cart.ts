@@ -44,7 +44,13 @@ export class CartPage {
   getcartdetail() {
     let loading = this.auth.loadginFactory();
     this.auth.getorderincart().then(cart => {
+      console.log(cart);
       if (cart != undefined) {
+        if(cart.length==0)
+        {
+          loading.dismiss();
+          return;
+        }
         this.cartdetail = cart;
         this.subtotal = 0;
         this.productList = [];
@@ -88,6 +94,7 @@ export class CartPage {
         })
       }
       else {
+
         loading.dismiss();
       }
     });
