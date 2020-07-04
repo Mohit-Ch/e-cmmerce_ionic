@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons start>
         <button ion-button (click)="clickRefresh()" clear>
-          <ion-icon name="refresh"></ion-icon>
+          <ion-icon class="font-big" name="refresh"></ion-icon>
         </button>
       </ion-buttons>
       <ion-title>
@@ -48,9 +48,9 @@
               </ion-col>
             </ion-row>
             <ion-row *ngIf="coupanShowMessagesuccess">
-              <ion-col col-12 class="text-right text-primary">
-                coupon applied {{coupanCode}}
-                Note* Max Discount Amount is {{maxdiscountamoumt}} and Minium order Amount {{minumamount}}
+              <ion-col col-12 class="text-left text-primary">
+                Coupon applied <span class="text-uppercase">{{oldCode}} </span> <br/>
+                <small>Max discount amount applicable {{maxdiscountamoumt}} <br/> Minimum order amount must be {{minumamount}} </small>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -90,7 +90,7 @@
               </ion-col>
               <div class="text-center close-button-container">
                 <button ion-button color='danger' class="close-button" small outline round (click)="RemoveToCart(item)">
-                  <ion-icon name="close"></ion-icon>
+                  <ion-icon  name="close"></ion-icon>
                 </button>
               </div>
             </ion-row>

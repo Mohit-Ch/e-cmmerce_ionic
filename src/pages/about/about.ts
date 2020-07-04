@@ -52,4 +52,14 @@ export class AboutPage {
       }
     });
   }
+
+  doRefresh(event) {
+    let env = this;
+    env.getInfoData();
+    setTimeout(() => {
+
+      event.complete();
+    }, 2000);
+  }
+
 }

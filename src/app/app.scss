@@ -140,3 +140,11 @@ ion-card, .card-md, .card-ios {
 .marginB15 {
     margin-bottom: 15px;
 }
+
+.font-big {
+    font-size: 2.2em;
+}
+
+.alert-md .alert-head, .alert-ios .alert-head, .alert-md .alert-button-group, .alert-ios .alert-button-group {
+    padding: 16px;
+}

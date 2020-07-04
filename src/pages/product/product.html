@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-grid class="no-padding">
     <ion-row>
       <ion-col col-12 class="autocomplete">
@@ -32,7 +35,7 @@
                 <img [src]="item.imageurl" onerror="this.onerror=null;this.src='assets/imgs/dummy.png'" />
               </ion-col>
               <ion-col col-8>
-                <h5 class="marginB10"><b>{{item.itemName}}</b></h5>
+                <h5 class="marginB10" (click)="ProductDetail(item.id)"><b>{{item.itemName}}</b></h5>
                 <!-- <ion-item *ngIf="item.EditionType!=0"> -->
                 <ion-item>
                   <ion-select value="brown" okText="Okay" cancelText="Dismiss" (ionChange)="datachange(item)"

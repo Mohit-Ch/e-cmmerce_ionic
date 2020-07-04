@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, ModalController, App, AlertC
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProductDetailPage } from '../product-detail/product-detail';
 import { OrderInfoPage } from '../order-info/order-info';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'page-cart',
@@ -39,26 +40,32 @@ export class CartPage {
   }
   ionViewWillEnter() {
     this.getcartdetail();
+    this.oldCode="";
+    this.coupanShowMessagedeny = false;
+    this.coupanShowMessagesuccess = false;
+   
   }
 
   getcartdetail() {
     let loading = this.auth.loadginFactory();
     this.auth.getorderincart().then(cart => {
-      console.log(cart);
       if (cart != undefined) {
-        if(cart.length==0)
-        {
-          loading.dismiss();
-          return;
-        }
-        this.cartdetail = cart;
         this.subtotal = 0;
         this.productList = [];
         this.total=0;
+        if(cart.length==0)
+        {
+         loading.dismiss();
+          return;
+        }
+        this.cartdetail = cart;
+       
         this.auth.getcartDetail(this.cartdetail).subscribe(res => {
           loading.dismiss();
           if (res["status"] == 'success') {
             if (res["data"] != '') {
+              this.coupanShowMessagedeny = false;
+              this.coupanShowMessagesuccess = false;
               this.productList = res["data"];
               this.productList.forEach(x => {
                 x["ShowAddbutton"] = false;
@@ -73,7 +80,6 @@ export class CartPage {
                   }
                   x["EditionId"] = x["Edition"][0]["id"];
                   x["maxquantity"] = x["Edition"][0]["quantity"];
-                  console.log(x["OrderQuantity"]);
                   this.subtotal += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                   this.total += parseFloat((x["Edition"][0]["price"] * x["OrderQuantity"]).toString());
                 }
@@ -102,70 +108,13 @@ export class CartPage {
 
 minumamount:any;
 maxdiscountamoumt:any;
+oldCode:any;
   Applycouponcode() {
     
     if (this.coupanCode != undefined) {
       if (this.coupanCode.length == 6) {
-        console.log(this.coupanCode);
-        this.auth.getCouponDetail(this.coupanCode).subscribe(res => {
-          if (res["code"] == 200) {
-            if (res["status"] == 'success') {
-              if (res["data"] != '') {
-
-                this.discountdescription = res["data"];
-                this.minumamount = res["data"]['minOrderAmount'];
-                this. maxdiscountamoumt = res["data"]['maxDiscountAmount'];
-                // let description = res["data"]['description'];
-                let type = res['data']['type'];
-                console.log(type); 
-                if (this.subtotal > this.minumamount) {
-                  if (type == 'percentage') {
-                    console.log(this.subtotal);
-                    console.log(this.minumamount);
-                    let amount = (this.subtotal * res["data"]['amount']) / 100;
-                    console.log(amount);
-                    if (amount <= this.maxdiscountamoumt) {
-                      this.total = this.subtotal - amount;
-                    }
-                    else {
-                      this.total = this.subtotal - this.maxdiscountamoumt;
-                    }
-                  }
-                  else if (type == 'fixed') {
-                    if (res["data"]['amount'] <= this.maxdiscountamoumt) {
-                      this.total = this.subtotal - res["data"]['amount'];
-                    }
-                    else {
-                      this.total = this.subtotal - this.maxdiscountamoumt;
-                    }
-                  }
-                  this.coupanShowMessagedeny = false;
-                  this.coupanShowMessagesuccess = true;
-                }
-                else {
-                  this.coupanShowMessagedeny = true;
-                  this.coupanShowMessagesuccess = false;
-                }
-              }else if (res["status"] == 'success') {
-                this.coupanShowMessagedeny = true;
-                this.coupanShowMessagesuccess = false;
-              }
-              else {
-                this.coupanShowMessagedeny = false;
-              }
-            }
-            else {
-              if (res["status"] == 'success') {
-                this.coupanShowMessagedeny = true;
-                this.coupanShowMessagesuccess = false;
-              }
-              else {
-                this.coupanShowMessagedeny = false;
-              }
-
-            }
-          }
-        })
+       this.applycoupon(this.coupanCode);
+      
       }
     }
     else {
@@ -218,12 +167,19 @@ maxdiscountamoumt:any;
         this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
         setTimeout(function () {
           _self.getcartdetail();
+         // _self. applycoupon( _self.oldCode)
         }, 1000);
       }
       else {
       
         this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
         item['quantity']=item['maxquantity'];
+        this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+          setTimeout(function () {
+            _self.getcartdetail();
+            //_self. applycoupon( _self.oldCode)
+            
+          }, 1000);
       }
    }
   }
@@ -237,12 +193,19 @@ maxdiscountamoumt:any;
           this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
           setTimeout(function () {
             _self.getcartdetail();
+           // _self. applycoupon( _self.oldCode)
           }, 1000);
+
         }
         else {
         
           this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
           item['quantity']=item['maxquantity'];
+          this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+          setTimeout(function () {
+            _self.getcartdetail();
+           // _self. applycoupon( _self.oldCode)
+          }, 1000);
         }
       }
     }
@@ -253,6 +216,7 @@ maxdiscountamoumt:any;
     this.auth.setorderincart(item["id"], item["EditionId"], '0');
     setTimeout(function () {      
       _self.getcartdetail();
+     // _self. applycoupon( _self.oldCode)
     }, 1000);
   }
 
@@ -270,7 +234,7 @@ maxdiscountamoumt:any;
     this.app.getRootNav().setRoot(OrderInfoPage,
       {
         orderDetail: this.productList,
-        couponcode: this.coupanCode,
+        couponcode: this.oldCode,
         subtotal: this.subtotal,
         Discount: this.Discount,
         total: this.total
@@ -297,6 +261,76 @@ maxdiscountamoumt:any;
       buttons: ["Ok"]
     });
     alert.present();
+  }
+
+  applycoupon(data)
+  {
+    console.log(data);
+    if(data==undefined)
+    {
+      return;
+    }
+    if(data.trim()=="")
+    {
+      return;
+    }
+    this.auth.getCouponDetail(data).subscribe(res => {
+      if (res["code"] == 200) {
+        if (res["status"] == 'success') {
+          if (res["data"] != '') {
+            this.oldCode=data;
+            this.coupanCode="";
+            this.discountdescription = res["data"];
+            this.minumamount = res["data"]['minOrderAmount'];
+            this. maxdiscountamoumt = res["data"]['maxDiscountAmount'];
+            // let description = res["data"]['description'];
+            let type = res['data']['type'];
+            console.log(this.subtotal);
+            if (this.subtotal > this.minumamount) {
+              if (type == 'percentage') {
+                let amount = (this.subtotal * res["data"]['amount']) / 100;
+                if (amount <= this.maxdiscountamoumt) {
+                  this.total = this.subtotal - amount;
+                }
+                else {
+                  this.total = this.subtotal - this.maxdiscountamoumt;
+                }
+              }
+              else if (type == 'fixed') {
+                if (res["data"]['amount'] <= this.maxdiscountamoumt) {
+                  this.total = this.subtotal - res["data"]['amount'];
+                }
+                else {
+                  this.total = this.subtotal - this.maxdiscountamoumt;
+                }
+              }
+              this.coupanShowMessagedeny = false;
+              this.coupanShowMessagesuccess = true;
+            }
+            else {
+              this.coupanShowMessagedeny = true;
+              this.coupanShowMessagesuccess = false;
+            }
+          }else if (res["status"] == 'success') {
+            this.coupanShowMessagedeny = true;
+            this.coupanShowMessagesuccess = false;
+          }
+          else {
+            this.coupanShowMessagedeny = false;
+          }
+        }
+        else {
+          if (res["status"] == 'success') {
+            this.coupanShowMessagedeny = true;
+            this.coupanShowMessagesuccess = false;
+          }
+          else {
+            this.coupanShowMessagedeny = false;
+          }
+
+        }
+      }
+    })
   }
 
 }
