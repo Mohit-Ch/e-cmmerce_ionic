@@ -91,6 +91,8 @@ export class HomePage {
           handler: () => {
             this.auth.clear();
            this.showlogin=true;
+           this.api_token=" ";
+           this.getproductList();
           }
         }
       ]
@@ -104,6 +106,7 @@ export class HomePage {
     logindetail.onDidDismiss(x => {
       if (x["foo"] === "success") {
         this.api_token = x["api_token"]
+        this.getproductList();
         if (this.api_token != null && this.api_token != undefined) {
           this.showlogin = false;
         }
@@ -114,6 +117,7 @@ export class HomePage {
 
   getproductList() {
     let loading = this.auth.loadginFactory();
+    this.productList=[];
     let token=this.api_token==undefined?" ":this.api_token;
     this.deviceid= this.deviceid==undefined?' ':this.deviceid;
     this.auth.getpastOrderList(this.deviceid, token).subscribe(res => {
@@ -131,6 +135,7 @@ export class HomePage {
             x["quantity"] =x["quantity"];
           });
         }
+
       }
     });
   }
@@ -141,5 +146,10 @@ export class HomePage {
     this.navCtrl.push(ProductDetailPage, {
       productId: item
     });
+  }
+
+  clickRefresh()
+  {
+    this.getproductList();
   }
 }
