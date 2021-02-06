@@ -28,11 +28,11 @@ export class AuthProvider {
     public platform: Platform) {
     let env = this;
     // For development
-     // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
+    // this.ApiUrl = "http://localhost:8000/api/mobileapp/";
 
     // Live Server Link 
-     this.ApiUrl = "http://golden-handle.com/laravel_account/api/mobileapp/";
-    //  this.PublicUrl = "http://golden-handle.com/";
+    this.ApiUrl = "https://jainhardware.store/laravel_account/api/mobileapp/";
+    //  this.PublicUrl = "https://jainhardware.store/";
 
     this.storage
       .get("guser")
@@ -291,23 +291,23 @@ export class AuthProvider {
   }
 
   public clear() {
-  
+
     this.storage.clear().then(() => {
       this.authUser = null;
     });
-   
+
   }
 
-   // Get Reset Token when user rest the password 
-   GetResetToken(RQ: any): Observable<string> {
+  // Get Reset Token when user rest the password 
+  GetResetToken(RQ: any): Observable<string> {
     return this.http
       .post(this.ApiUrl + "password/email", RQ)
       .map((res: any) => {
         return <string>res["data"];
       })
       .catch((error: any) => {
-        
-       
+
+
         return Observable.throw(new Error(error.status));
       });
   }
@@ -336,8 +336,8 @@ export class AuthProvider {
       });
   }
 
-   // Get productList
-   getpastOrderList(deciceId: any, Token: any): Observable<any> {
+  // Get productList
+  getpastOrderList(deciceId: any, Token: any): Observable<any> {
     return this.http.get(this.ApiUrl + "getPastOrder?deviceId=" + deciceId + "&api_token=" + Token).map((res: any) => {
       return <any>res;
     });
@@ -351,7 +351,7 @@ export class AuthProvider {
 
   // set logo Storage
   public SetlogoStorage(logo: any) {
-  
+
     this.storage.set("logo", logo);
   }
 
