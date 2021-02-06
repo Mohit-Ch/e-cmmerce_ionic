@@ -175,25 +175,25 @@ export class OrderInfoPage {
     if (this.Phone.length < 10) {
       return false;
     }
-    if (this.address1 == undefined) {
-      return false;
-    }
-    if (this.address1.trim() == "") {
-      return false;
-    }
-    if (this.city == undefined) {
-      return false;
-    }
-    if (this.city.trim() == "") {
-      return false;
-    }
+    // if (this.address1 == undefined) {
+    //   return false;
+    // }
+    // if (this.address1.trim() == "") {
+    //   return false;
+    // }
+    // if (this.city == undefined) {
+    //   return false;
+    // }
+    // if (this.city.trim() == "") {
+    //   return false;
+    // }
 
-    if (this.postalCode == undefined) {
-      return false;
-    }
-    if (this.postalCode.trim() == "") {
-      return false;
-    }
+    // if (this.postalCode == undefined) {
+    //   return false;
+    // }
+    // if (this.postalCode.trim() == "") {
+    //   return false;
+    // }
 
     return true;
 
