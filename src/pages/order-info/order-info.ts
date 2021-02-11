@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ViewController, Platform, App } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, Platform, App } from 'ionic-angular';
 import { LoginModelPage } from '../login-model/login-model';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AddressModelPage } from '../address-model/address-model';
@@ -23,16 +23,16 @@ export class OrderInfoPage {
   api_token: any;
   showlogin: any = true;
   address1: any;
-  city: any;
+  city: any = "Kuwait";
   country: any = "Kuwait";
-  postalCode: any;
+  postalCode: any = "400605";
   addressId: any = 0;
   myForm: any;
   name: any;
   Phone: any;
   email: any;
-  CompanyName: any;
-  AdditionalInfo: any;
+  CompanyName: any = 'Comapnay Name';
+  AdditionalInfo: any = 'Blank';
   ShowMenditoryData: any = false;
   password: any;
   passwordV: any = false;
@@ -45,9 +45,9 @@ export class OrderInfoPage {
   total: any;
   cartdata: any;
   deviceid: any = "123456";
-  existaddress:any=false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider, private alert: AlertController, private viewCtrl: ViewController,
-    private uniquid: UniqueDeviceID, private platform: Platform,  public app: App ) {
+  existaddress: any = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider, private alert: AlertController,
+    private uniquid: UniqueDeviceID, private platform: Platform, public app: App) {
     if (this.auth.authUser != null) {
       this.api_token = this.auth.authUser["api_token"];
       if (this.api_token != null && this.api_token != undefined) {
@@ -77,62 +77,56 @@ export class OrderInfoPage {
     if (this.platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
-         
+
           this.deviceid = uuid;
         })
         .catch((error: any) => console.log(error));
-    } else if(this.platform.is('ios'))
-    {
+    } else if (this.platform.is('ios')) {
       this.uniquid.get()
-      .then((uuid: any) => {
-       
-        this.deviceid = uuid;
-      })
-      .catch((error: any) => console.log(error));
+        .then((uuid: any) => {
+
+          this.deviceid = uuid;
+        })
+        .catch((error: any) => console.log(error));
 
     }
 
   }
 
-  ionViewWillEnter() {
-    if( this.api_token!=undefined){
-      this.auth.GetAddressexit( this.api_token).subscribe(x=>{
-        if(x['status']=='success')
-        {
-          if(x['data']==true)
-          {
-            this.existaddress=true;
-           this.showAddressPopup();
-          }
-          else{
-            this.getaddressforstorage();
-          }
-        }
-      })
-    }
-    else{
-     this.getaddressforstorage();
-    }
-  }
+  // ionViewWillEnter() {
+  //   if (this.api_token != undefined) {
+  //     this.auth.GetAddressexit(this.api_token).subscribe(x => {
+  //       if (x['status'] == 'success') {
+  //         if (x['data'] == true) {
+  //           this.existaddress = true;
+  //           this.showAddressPopup();
+  //         }
+  //         else {
+  //           this.getaddressforstorage();
+  //         }
+  //       }
+  //     })
+  //   }
+  //   else {
+  //     this.getaddressforstorage();
+  //   }
+  // }
 
-  ionViewDidLoad() {
-  
-    
-  }
+  // ionViewDidLoad() {
 
-  getaddressforstorage()
-  {
-    this.auth.getAddressStorage().then(x=>
-      {
-        if(x!=undefined)
-        {
-          this.existaddress=true;
-          this.showAddressPopup();
-        }
-        else{
-          this.existaddress=false;
-        }
-      })
+
+  // }
+
+  getaddressforstorage() {
+    this.auth.getAddressStorage().then(x => {
+      if (x != undefined) {
+        this.existaddress = true;
+        this.showAddressPopup();
+      }
+      else {
+        this.existaddress = false;
+      }
+    })
   }
 
   validation() {
@@ -254,12 +248,12 @@ export class OrderInfoPage {
           this.address1 = x['address'].address1;
           this.city = x['address'].city;
           this.country = x['address'].country;
-          this.postalCode = x['address'].postal_code;
+          // this.postalCode = x['address'].postal_code;
           this.addressId = x['address'].id;
           this.name = x['address'].name;
           this.email = x['address'].email;
           this.Phone = x['address'].phone_no;
-          this.CompanyName = x['address'].company_name;
+          // this.CompanyName = x['address'].company_name;
         }
       }
     });
@@ -273,7 +267,7 @@ export class OrderInfoPage {
       return;
     }
 
-    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode,this.name,this.email,this.Phone,this.CompanyName);
+    this.auth.SetAddressStorage(this.address1, this.city, this.country, this.postalCode, this.name, this.email, this.Phone, this.CompanyName);
     let detail = {
       name: this.name,
       email: this.email == undefined ? "" : this.email,
@@ -296,11 +290,11 @@ export class OrderInfoPage {
       deviceId: this.deviceid
 
     }
-    
+
     let Loader = this.auth.loadginFactory();
     this.auth.Setorderdetail(detail).subscribe(x => {
       Loader.dismiss();
-      if (x["code"] ==200) {
+      if (x["code"] == 200) {
         this.cartdata.forEach(y => {
           this.auth.setorderincart(y['itemId'], y['itemeditionId'], 0);
         });
@@ -311,10 +305,10 @@ export class OrderInfoPage {
         })
         // let data = { foo: "bar" };
         // this.viewCtrl.dismiss(data);
-      } else if(x["code"] ==205){
+      } else if (x["code"] == 205) {
         this.presentAletNav(x["message"])
       }
-      else if(x["code"] ==206){
+      else if (x["code"] == 206) {
         this.presentAlert(x["message"])
       } else {
         this.app.getRootNav().setRoot(TabsPage);
@@ -334,8 +328,7 @@ export class OrderInfoPage {
     alert.present();
   }
 
-  backbutton()
-  {
+  backbutton() {
     this.app.getRootNav().setRoot(TabsPage);
     // this.auth.getorderincart().then(
     //   x => {
@@ -347,15 +340,16 @@ export class OrderInfoPage {
     // )
   }
 
-   // Alert any Error occured 
-   presentAletNav(error: any) {
+  // Alert any Error occured 
+  presentAletNav(error: any) {
     let alert = this.alert.create({
       subTitle: error,
       buttons: [{
         text: 'Ok',
         handler: () => {
           this.app.getRootNav().setRoot(TabsPage);
-        }}]
+        }
+      }]
     });
     alert.present();
   }

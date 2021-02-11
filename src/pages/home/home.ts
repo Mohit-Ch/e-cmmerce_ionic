@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ViewController, Platform, App, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, Platform, App, ActionSheetController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { ChangePasswordPage } from '../change-password/change-password';
@@ -12,42 +12,41 @@ import { ProductDetailPage } from '../product-detail/product-detail';
 })
 export class HomePage {
 
-  deviceid:any;
-  api_token:any;
-  showlogin:any=true;
-  productList:any=[];
-  name:any="";
+  deviceid: any;
+  api_token: any;
+  showlogin: any = true;
+  productList: any = [];
+  name: any = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, public modal: ModalController, public auth: AuthProvider, private alert: AlertController,
-    private uniquid: UniqueDeviceID, private platform: Platform,  public app: App, public actionSheetCtrl: ActionSheetController) {
+    private uniquid: UniqueDeviceID, private platform: Platform, public app: App, public actionSheetCtrl: ActionSheetController) {
 
-      if (this.auth.authUser != null) {
-        this.api_token = this.auth.authUser["api_token"];
-        this.name=this.auth.authUser["name"]
-        if (this.api_token != null && this.api_token != undefined) {
-          this.showlogin = false;
-        }
-        else {
-          this.showlogin = false;
-        }
-      } else {
-        this.showlogin = true;
+    if (this.auth.authUser != null) {
+      this.api_token = this.auth.authUser["api_token"];
+      this.name = this.auth.authUser["name"]
+      if (this.api_token != null && this.api_token != undefined) {
+        this.showlogin = false;
       }
+      else {
+        this.showlogin = false;
+      }
+    } else {
+      this.showlogin = true;
+    }
 
     if (platform.is('android')) {
       this.uniquid.get()
         .then((uuid: any) => {
-         
+
           this.deviceid = uuid;
         })
         .catch((error: any) => console.log(error));
-    } else if(platform.is('ios'))
-    {
+    } else if (platform.is('ios')) {
       this.uniquid.get()
-      .then((uuid: any) => {
-       
-        this.deviceid = uuid;
-      })
-      .catch((error: any) => console.log(error));
+        .then((uuid: any) => {
+
+          this.deviceid = uuid;
+        })
+        .catch((error: any) => console.log(error));
 
     }
     this.getproductList();
@@ -74,8 +73,7 @@ export class HomePage {
     actionSheet.present();
   }
 
-  logout()
-  {
+  logout() {
     let alert = this.alert.create({
       subTitle: 'Are you sure you want to logout?',
       buttons: [
@@ -86,9 +84,9 @@ export class HomePage {
           text: "Yes",
           handler: () => {
             this.auth.clear();
-           this.showlogin=true;
-           this.api_token=" ";
-           this.getproductList();
+            this.showlogin = true;
+            this.api_token = " ";
+            this.getproductList();
           }
         }
       ]
@@ -96,8 +94,7 @@ export class HomePage {
     alert.present();
   }
 
-  Login()
-  {
+  Login() {
     var logindetail = this.modal.create(LoginModelPage);
     logindetail.onDidDismiss(x => {
       if (x["foo"] === "success") {
@@ -113,9 +110,9 @@ export class HomePage {
 
   getproductList() {
     let loading = this.auth.loadginFactory();
-    this.productList=[];
-    let token=this.api_token==undefined?" ":this.api_token;
-    this.deviceid= this.deviceid==undefined?' ':this.deviceid;
+    this.productList = [];
+    let token = this.api_token == undefined ? " " : this.api_token;
+    this.deviceid = this.deviceid == undefined ? ' ' : this.deviceid;
     this.auth.getpastOrderList(this.deviceid, token).subscribe(res => {
       loading.dismiss();
       if (res["status"] == 'success') {
@@ -128,7 +125,7 @@ export class HomePage {
               x["EditionId"] = x["Edition"]["id"];
               x["maxquantity"] = x["Edition"][0]["quantity"];
             }
-            x["quantity"] =x["quantity"];
+            x["quantity"] = x["quantity"];
           });
         }
 
@@ -136,7 +133,7 @@ export class HomePage {
     });
   }
 
-  
+
   ProductDetail(item) {
 
     this.navCtrl.push(ProductDetailPage, {
@@ -144,8 +141,7 @@ export class HomePage {
     });
   }
 
-  clickRefresh()
-  {
+  clickRefresh() {
     this.getproductList();
   }
 

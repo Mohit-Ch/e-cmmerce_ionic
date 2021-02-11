@@ -30,15 +30,15 @@
     <ion-row>
       <ion-col col-12 *ngIf="existaddress">
         <p class="flex-container justify-space-between">
-          <a color="primary" (click)="showAddressPopup()">  Select Delivery Address </a>
-        
+          <a color="primary" (click)="showAddressPopup()"> Select Delivery Address </a>
+
         </p>
       </ion-col>
     </ion-row>
 
 
     <ion-item>
-      <ion-label stacked text-wrap>Full Name <span color="danger" class="text-danger">*</span>: </ion-label>
+      <ion-label stacked text-wrap>Name<span color="danger" class="text-danger">*</span>: </ion-label>
       <ion-input type="text" [(ngModel)]="name"></ion-input>
     </ion-item>
     <ion-item>
@@ -54,10 +54,10 @@
       {{messageEmail}}
     </p>
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label stacked text-wrap>Company Name: </ion-label>
       <ion-input type="text" [(ngModel)]="CompanyName"></ion-input>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item>
       <ion-label stacked text-wrap> Address : </ion-label>
@@ -74,24 +74,24 @@
       <ion-input type="text" disabled="true" [(ngModel)]="country" value="Kuwait">
       </ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label stacked text-wrap>Postal Code : </ion-label>
       <ion-input type="text" [(ngModel)]="postalCode" placeholder="Ex:- 110051">
       </ion-input>
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label stacked text-wrap>Special request or notes for delivery </ion-label>
       <ion-textarea type="text" [(ngModel)]="AdditionalInfo" placeholder="">
       </ion-textarea>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item *ngIf="showlogin">
       <ion-label tooltip="creating an account will help you to check and replace orders">
         Want to Create an account! <br />
         <small>Select the checkbox to create your account.</small>
       </ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData" ></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="ShowMenditoryData"></ion-checkbox>
     </ion-item>
     <ion-item *ngIf="ShowMenditoryData">
       <ion-label stacked text-wrap>password <span color="danger" class="text-danger">*</span>: </ion-label>
@@ -102,15 +102,16 @@
     </p>
 
     <hr />
-    <h4>Order Detail</h4>
+    <h4>Order Summary</h4>
     <ion-list *ngIf="productList.length>0">
       <ion-row *ngFor="let item of productList">
         <ion-col col-8>
           {{item.itemName}} <br />
-          <small>{{item.Edition[0].itemEditionName}},{{item.quantity}}</small>
+          <small>{{item.Edition[0].itemEditionName}}</small>
         </ion-col>
-        <ion-col col-4>
-          KWD {{item.Edition[0].price}}
+        <ion-col col-4 class="text-right">
+          <b>KWD {{item.Edition[0].price}}</b> <br />
+          <small>({{item.quantity}} unit)</small>
         </ion-col>
       </ion-row>
       <hr *ngIf="Discount != 0" />
@@ -138,6 +139,9 @@
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <button class="flex1" ion-button color='primary' (click)="orderPlaced()" block> Place Order </button>
-    <h3 class="flex2 text-primary no-margin text-right"><small>KWD </small> {{total}}</h3>
+    <h5 class="flex2 no-margin text-right">
+      <small>Total :- </small>
+      <span class="text-primary"><b><small> KWD</small> {{total}}</b></span>
+    </h5>
   </ion-toolbar>
 </ion-footer>
