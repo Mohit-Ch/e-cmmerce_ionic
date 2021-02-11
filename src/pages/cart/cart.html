@@ -49,8 +49,9 @@
             </ion-row>
             <ion-row *ngIf="coupanShowMessagesuccess">
               <ion-col col-12 class="text-left text-primary">
-                Coupon applied <span class="text-uppercase">{{oldCode}} </span> <br/>
-                <small>Max discount amount applicable {{maxdiscountamoumt}} <br/> Minimum order amount must be {{minumamount}} </small>
+                Coupon applied <span class="text-uppercase">{{oldCode}} </span> <br />
+                <small>Max discount amount applicable {{maxdiscountamoumt}} <br /> Minimum order amount must be
+                  {{minumamount}} </small>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -79,7 +80,8 @@
                 </ion-item>
                 <div class="flex-container">
                   <ion-input *ngIf="item.ShowAddbutton==true" type='number' class="quantity" [(ngModel)]="item.quantity"
-                  (ionBlur)="addtoCartClick($event, item)" (keyup)="onKeyUp($event, item)"width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                    (ionBlur)="addtoCartClick($event, item)" (keyup)="onKeyUp($event, item)" width="10%" min="0"
+                    [max]="item.maxquantity"></ion-input>
                   <h6 class="no-margin">KWD {{item.price}}</h6>
                 </div>
                 <p class="text-danger" *ngIf="item.OutOfOrder">
@@ -90,7 +92,7 @@
               </ion-col>
               <div class="text-center close-button-container">
                 <button ion-button color='danger' class="close-button" small outline round (click)="RemoveToCart(item)">
-                  <ion-icon  name="close"></ion-icon>
+                  <ion-icon name="close"></ion-icon>
                 </button>
               </div>
             </ion-row>
@@ -138,10 +140,10 @@
   <ion-grid *ngIf=" cartdetail.length==0">
     <ion-row>
       <ion-col>
-        <h4  class="flex2 text-dange">
+        <h4 class="flex2 text-dange">
           Your cart is empty!
         </h4>
-        
+
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -158,6 +160,9 @@
   <ion-toolbar *ngIf="showProcidebutton==true">
     <button class="flex1" ion-button color='primary' *ngIf="showProcidebutton==true && subtotal>=50"
       (click)="checkout()" expand="block" size='lg' fill="outline">Continue</button>
-    <h5 class="flex2 text-primary text-right"><small>KWD </small> {{total}}</h5>
+    <h5 class="flex2  text-right">
+      <small>Total :- </small>
+      <span class="text-primary"><small>KWD </small> {{total}}</span>
+    </h5>
   </ion-toolbar>
 </ion-footer>

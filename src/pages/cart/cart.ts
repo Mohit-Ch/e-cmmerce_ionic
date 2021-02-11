@@ -3,7 +3,6 @@ import { NavController, NavParams, ToastController, ModalController, App, AlertC
 import { AuthProvider } from '../../providers/auth/auth';
 import { ProductDetailPage } from '../product-detail/product-detail';
 import { OrderInfoPage } from '../order-info/order-info';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'page-cart',
@@ -26,9 +25,9 @@ export class CartPage {
   coupanShowMessagesuccess: any = false;
   discountdescription: any = "";
   showProcidebutton: any = true;
-  showminamountMes:boolean=true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,private alert: AlertController, public toastCtrl: ToastController, public model: ModalController, public app: App) {
-   // this.getcartdetail();
+  showminamountMes: boolean = true;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider, private alert: AlertController, public toastCtrl: ToastController, public model: ModalController, public app: App) {
+    // this.getcartdetail();
   }
 
   ionViewDidLoad() {
@@ -36,14 +35,14 @@ export class CartPage {
 
   }
   ngOnInIt() {
-   //this.getcartdetail();
+    //this.getcartdetail();
   }
   ionViewWillEnter() {
     this.getcartdetail();
-    this.oldCode="";
+    this.oldCode = "";
     this.coupanShowMessagedeny = false;
     this.coupanShowMessagesuccess = false;
-   
+
   }
 
   getcartdetail() {
@@ -52,14 +51,13 @@ export class CartPage {
       if (cart != undefined) {
         this.subtotal = 0;
         this.productList = [];
-        this.total=0;
-        if(cart.length==0)
-        {
-         loading.dismiss();
+        this.total = 0;
+        if (cart.length == 0) {
+          loading.dismiss();
           return;
         }
         this.cartdetail = cart;
-       
+
         this.auth.getcartDetail(this.cartdetail).subscribe(res => {
           loading.dismiss();
           if (res["status"] == 'success') {
@@ -106,15 +104,15 @@ export class CartPage {
     });
   }
 
-minumamount:any;
-maxdiscountamoumt:any;
-oldCode:any;
+  minumamount: any;
+  maxdiscountamoumt: any;
+  oldCode: any;
   Applycouponcode() {
-    
+
     if (this.coupanCode != undefined) {
       if (this.coupanCode.length == 6) {
-       this.applycoupon(this.coupanCode);
-      
+        this.applycoupon(this.coupanCode);
+
       }
     }
     else {
@@ -162,49 +160,47 @@ oldCode:any;
 
   addtoCartClick(_event: any, item) {
     let _self = this
-    if(item['quantity'].trim()!=""){
-      if ( +item['quantity'] <= +item['maxquantity']) {
+    if (item['quantity'].trim() != "") {
+      if (+item['quantity'] <= +item['maxquantity']) {
         this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
         setTimeout(function () {
           _self.getcartdetail();
-         // _self. applycoupon( _self.oldCode)
+          // _self. applycoupon( _self.oldCode)
         }, 1000);
       }
       else {
-      
-        this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
-        item['quantity']=item['maxquantity'];
+
+        this.presentAlert("For" + item['itemName'] + "the maximum quantity avalilable is " + item['maxquantity']);
+        item['quantity'] = item['maxquantity'];
         this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
-          setTimeout(function () {
-            _self.getcartdetail();
-            //_self. applycoupon( _self.oldCode)
-            
-          }, 1000);
+        setTimeout(function () {
+          _self.getcartdetail();
+          //_self. applycoupon( _self.oldCode)
+
+        }, 1000);
       }
-   }
+    }
   }
-  onKeyUp(_event: any, item)
-  {
-   if(_event.keyCode==13)
-   {
+  onKeyUp(_event: any, item) {
+    if (_event.keyCode == 13) {
       let _self = this
-      if(item['quantity'].trim()!=""){
-        if ( +item['quantity'] <= +item['maxquantity']) {
+      if (item['quantity'].trim() != "") {
+        if (+item['quantity'] <= +item['maxquantity']) {
           this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
           setTimeout(function () {
             _self.getcartdetail();
-           // _self. applycoupon( _self.oldCode)
+            // _self. applycoupon( _self.oldCode)
           }, 1000);
 
         }
         else {
-        
-          this.presentAlert("For"+ item['itemName'] +"the maximum quantity avalilable is " + item['maxquantity']);
-          item['quantity']=item['maxquantity'];
+
+          this.presentAlert("For" + item['itemName'] + "the maximum quantity avalilable is " + item['maxquantity']);
+          item['quantity'] = item['maxquantity'];
           this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
           setTimeout(function () {
             _self.getcartdetail();
-           // _self. applycoupon( _self.oldCode)
+            // _self. applycoupon( _self.oldCode)
           }, 1000);
         }
       }
@@ -214,21 +210,21 @@ oldCode:any;
   RemoveToCart(item) {
     let _self = this
     this.auth.setorderincart(item["id"], item["EditionId"], '0');
-    setTimeout(function () {      
+    setTimeout(function () {
       _self.getcartdetail();
-     // _self. applycoupon( _self.oldCode)
+      // _self. applycoupon( _self.oldCode)
     }, 1000);
   }
 
   // Present toast page
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: "top"
-    });
-    toast.present();
-  }
+  // private presentToast(text) {
+  //   let toast = this.toastCtrl.create({
+  //     message: text,
+  //     duration: 3000,
+  //     position: "top"
+  //   });
+  //   toast.present();
+  // }
 
   checkout() {
     this.app.getRootNav().setRoot(OrderInfoPage,
@@ -250,12 +246,12 @@ oldCode:any;
     }, 2000);
   }
 
-   clickRefresh(event) {
+  clickRefresh(event) {
     let env = this;
-    env.getcartdetail();   
+    env.getcartdetail();
   }
-   // Alert any Error occured 
-   presentAlert(error: any) {
+  // Alert any Error occured 
+  presentAlert(error: any) {
     let alert = this.alert.create({
       subTitle: error,
       buttons: ["Ok"]
@@ -263,26 +259,23 @@ oldCode:any;
     alert.present();
   }
 
-  applycoupon(data)
-  {
+  applycoupon(data) {
     console.log(data);
-    if(data==undefined)
-    {
+    if (data == undefined) {
       return;
     }
-    if(data.trim()=="")
-    {
+    if (data.trim() == "") {
       return;
     }
     this.auth.getCouponDetail(data).subscribe(res => {
       if (res["code"] == 200) {
         if (res["status"] == 'success') {
           if (res["data"] != '') {
-            this.oldCode=data;
-            this.coupanCode="";
+            this.oldCode = data;
+            this.coupanCode = "";
             this.discountdescription = res["data"];
             this.minumamount = res["data"]['minOrderAmount'];
-            this. maxdiscountamoumt = res["data"]['maxDiscountAmount'];
+            this.maxdiscountamoumt = res["data"]['maxDiscountAmount'];
             // let description = res["data"]['description'];
             let type = res['data']['type'];
             console.log(this.subtotal);
@@ -311,7 +304,7 @@ oldCode:any;
               this.coupanShowMessagedeny = true;
               this.coupanShowMessagesuccess = false;
             }
-          }else if (res["status"] == 'success') {
+          } else if (res["status"] == 'success') {
             this.coupanShowMessagedeny = true;
             this.coupanShowMessagesuccess = false;
           }

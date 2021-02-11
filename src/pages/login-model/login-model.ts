@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ViewController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController, ModalController } from 'ionic-angular';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
@@ -17,17 +17,17 @@ import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 })
 export class LoginModelPage {
 
-   // Variable Declared in it
-   myForm: any;
-   userData: any;
-   DeviceId: string;
-   submitt: boolean = false;
-   Toast:any;
-   
+  // Variable Declared in it
+  myForm: any;
+  userData: any;
+  DeviceId: string;
+  submitt: boolean = false;
+  Toast: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
     private auth: AuthProvider,
     private alert: AlertController,
-    private viewCtrl:ViewController,
+    private viewCtrl: ViewController,
     public modal: ModalController) {
     this.initializeForm();
 
@@ -37,8 +37,8 @@ export class LoginModelPage {
     console.log('ionViewDidLoad LoginModelPage');
   }
 
-   // InitiallizeFrom validation and through form Builder
-   private initializeForm() {
+  // InitiallizeFrom validation and through form Builder
+  private initializeForm() {
 
     //  Set From Validation
     this.myForm = this.formBuilder.group({
@@ -78,11 +78,12 @@ export class LoginModelPage {
             console.log(res);
             // Check Id And set MixPanel people Property
             if (res['data'].id != null && res["data"].name != null) {
-              let data = { foo: "success",
-              api_token: res["data"].api_token
-             };
+              let data = {
+                foo: "success",
+                api_token: res["data"].api_token
+              };
               this.viewCtrl.dismiss(data);
-              
+
             }
           },
           error => {
@@ -116,8 +117,8 @@ export class LoginModelPage {
     }
   }
 
-   // Alert any Error occured 
-   presentAlert(error: any) {
+  // Alert any Error occured 
+  presentAlert(error: any) {
     let alert = this.alert.create({
       subTitle: error,
       buttons: ["Ok"]
@@ -130,9 +131,8 @@ export class LoginModelPage {
     this.viewCtrl.dismiss(data);
   }
 
-  forgotPassword()
-  {
-    let forgotPassword = this.modal.create(ForgotPasswordPage);   
+  forgotPassword() {
+    let forgotPassword = this.modal.create(ForgotPasswordPage);
     forgotPassword.present();
 
   }
