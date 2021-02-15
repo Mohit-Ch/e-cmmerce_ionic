@@ -166,7 +166,7 @@ export class OrderInfoPage {
     if (this.Phone == undefined) {
       return false;
     }
-    if (this.Phone.length < 10) {
+    if (this.Phone.length > 7 && this.Phone.length < 13) {
       return false;
     }
     // if (this.address1 == undefined) {
