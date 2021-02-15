@@ -130,7 +130,7 @@ export class OrderInfoPage {
   }
 
   validation() {
-    if (this.ShowMenditoryData == true) {
+        if (this.ShowMenditoryData == true) {
       if (this.password == undefined) {
         return false;
       }
@@ -262,7 +262,7 @@ export class OrderInfoPage {
 
   orderPlaced() {
     let env = this;
-    if (!this.validation()) {
+    if (this.validation()) {
       env.presentAlert("Please enter all mandatory (*) field!");
       return;
     }
