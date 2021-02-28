@@ -37,12 +37,21 @@
             </ion-item> -->
           <div class="flex-container">
             <ion-label>Quantity</ion-label>
-            <ion-input type='number' class="quantity" [(ngModel)]="productdata.quantity" width="10%" min="0"
-              [max]="productdata.maxquantity"></ion-input>
+            <ion-col col-6 class="calculation" >
+              <button class="add-btn" clear (click)="decrementQty(productdata)"><ion-icon name="remove-circle" ></ion-icon></button>
+              <span>{{productdata.quantity}}</span>
+              <button class="add-btn" clear (click)="incrementQty(productdata)"><ion-icon name="add-circle" ></ion-icon></button>
+            </ion-col>
+            <!-- <ion-input type='number' class="quantity" [(ngModel)]="productdata.quantity" width="10%" min="0"
+              [max]="productdata.maxquantity"></ion-input> -->
           </div>
         </ion-col>
       </ion-row>
       <hr />
+      <p>
+        {{remark}}
+      </p>
+      
       <p *ngIf="productdata!=undefined">
         {{productdata.aboutItem}}
       </p>

@@ -20,6 +20,7 @@ export class ProductDetailPage {
   itemedition:any=[];
   itemImage:any=[];
   itemInfo:any=[];
+  remark:any="";
   constructor(public navCtrl: NavController, public navParams: NavParams,public auth: AuthProvider) {
     this.productId=this.navParams.data["productId"];
     this.getProductDetail();
@@ -59,6 +60,7 @@ export class ProductDetailPage {
               }
               this.productdata["EditionId"]=this.itemedition[0]["id"];
               this.productdata["maxquantity"]=this.itemedition[0]["quantity"];
+              this.remark=this.itemedition[0]["remark"];
              }
              this.productdata["quantity"]=1;
            }
@@ -83,6 +85,7 @@ export class ProductDetailPage {
         {
           this.productdata["price"]=x["price"];
           this.productdata["quantity"]=1;
+          this.remark=x["remark"];
         }
         
       });
@@ -90,5 +93,28 @@ export class ProductDetailPage {
      
     }
   }
+
+  incrementQty(data){
+    if(data.quantity< data.maxquantity)
+    {
+      data.quantity += 1;
+      console.log(data.quantity + 1);
+    }
+    
+    }
+    
+    //decrements item
+    
+    decrementQty(data){
+    if(data.quantity-1 < 1){
+      data.quantity = 1;
+      console.log('item_1->' + data.quantity)
+    }
+    else{
+      data.quantity -= 1;
+      console.log('item_2->' + data.quantity);
+    }
+    }
+
 
 }

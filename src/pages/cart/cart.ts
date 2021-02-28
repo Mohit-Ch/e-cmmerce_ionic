@@ -184,7 +184,7 @@ export class CartPage {
   onKeyUp(_event: any, item) {
     if (_event.keyCode == 13) {
       let _self = this
-      if (item['quantity'].trim() != "") {
+     
         if (+item['quantity'] <= +item['maxquantity']) {
           this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
           setTimeout(function () {
@@ -204,8 +204,55 @@ export class CartPage {
           }, 1000);
         }
       }
-    }
+    
   }
+
+  incrementQty(item){
+    let _self = this
+      if (+item['quantity'] < +item['maxquantity']) {
+        item["quantity"] += 1;
+        this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+        setTimeout(function () {
+          _self.getcartdetail();
+          // _self. applycoupon( _self.oldCode)
+        }, 1000);
+
+      }
+      else {
+
+        this.presentAlert("For" + item['itemName'] + "the maximum quantity avalilable is " + item['maxquantity']);
+        // item['quantity'] = item['maxquantity'];       
+        setTimeout(function () {
+          _self.getcartdetail();
+          // _self. applycoupon( _self.oldCode)
+        }, 1000);
+      }
+    
+    
+    }
+    
+    //decrements item
+    
+    decrementQty(item){
+      
+      let _self = this
+    if(item.quantity-1 < 1){
+      item.quantity = 1;
+      this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+          setTimeout(function () {
+            _self.getcartdetail();
+            // _self. applycoupon( _self.oldCode)
+          }, 1000);
+    }
+    else{
+      item.quantity -= 1;
+      this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
+      setTimeout(function () {
+        _self.getcartdetail();
+        // _self. applycoupon( _self.oldCode)
+      }, 1000);
+    }
+    }
 
   RemoveToCart(item) {
     let _self = this

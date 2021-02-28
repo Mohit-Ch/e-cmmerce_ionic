@@ -48,8 +48,13 @@
                   <ion-label *ngIf="item.Edition!=undefined &&item.Edition.length>0 ">{{item.Edition[0].itemEditionName}}</ion-label>
                 </ion-item> -->
                 <div class="flex-container">
-                  <ion-input *ngIf="item.ShowAddbutton==true" type='numeric' class="quantity" [(ngModel)]="item.quantity"
-                    width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                  <ion-col col-6 class="calculation" >
+                    <button class="add-btn" clear (click)="decrementQty(item)"><ion-icon name="remove-circle" ></ion-icon></button>
+                    <span>{{item.quantity}}</span>
+                    <button class="add-btn" clear (click)="incrementQty(item)"><ion-icon name="add-circle" ></ion-icon></button>
+                  </ion-col>
+                  <!-- <ion-input *ngIf="item.ShowAddbutton==true" type='numeric' class="quantity" [(ngModel)]="item.quantity"
+                    width="10%" min="0" [max]="item.maxquantity"></ion-input> -->
                   <h6 class="no-margin">KWD {{item.price}}</h6>
                 </div>
                 <div class="text-center">

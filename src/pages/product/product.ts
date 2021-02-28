@@ -150,4 +150,26 @@ export class ProductPage {
     }, 2000);
   }
 
+  incrementQty(data){
+    if(data.quantity< data.maxquantity)
+    {
+      data.quantity += 1;
+      console.log(data.quantity + 1);
+    }
+    
+    }
+    
+    //decrements item
+    
+    decrementQty(data){
+    if(data.quantity-1 < 1){
+      data.quantity = 1;
+      console.log('item_1->' + data.quantity)
+    }
+    else{
+      data.quantity -= 1;
+      console.log('item_2->' + data.quantity);
+    }
+    }
+
 }
