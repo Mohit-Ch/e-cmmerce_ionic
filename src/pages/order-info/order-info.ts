@@ -197,7 +197,7 @@ export class OrderInfoPage {
 
   ValidateEmail(mail) {
     console.log(this.email);
-    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
     if (this.email.match(mailformat)) {
       this.emailvalid = false;
       if (this.ShowMenditoryData == true) {

@@ -48,7 +48,7 @@
     <ion-item>
       <ion-label stacked text-wrap>Email <span color="danger" class="text-danger" *ngIf="ShowMenditoryData">*</span>:
       </ion-label>
-      <ion-input type="text" [(ngModel)]="email" (change)="ValidateEmail($event)"></ion-input>
+      <ion-input type="text" [(ngModel)]="email" (change)="ValidateEmail($event)"><span color="danger" class="text-danger">*</span></ion-input>
     </ion-item>
     <p *ngIf="emailvalid" color="danger" class="text-danger">
       {{messageEmail}}

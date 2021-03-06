@@ -213,7 +213,7 @@ export class CartPage {
         item["quantity"] += 1;
         this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
         setTimeout(function () {
-          _self.getcartdetail();
+         // _self.getcartdetail();
           // _self. applycoupon( _self.oldCode)
         }, 1000);
 
@@ -223,7 +223,7 @@ export class CartPage {
         this.presentAlert("For" + item['itemName'] + "the maximum quantity avalilable is " + item['maxquantity']);
         // item['quantity'] = item['maxquantity'];       
         setTimeout(function () {
-          _self.getcartdetail();
+         // _self.getcartdetail();
           // _self. applycoupon( _self.oldCode)
         }, 1000);
       }
@@ -240,7 +240,7 @@ export class CartPage {
       item.quantity = 1;
       this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
           setTimeout(function () {
-            _self.getcartdetail();
+           // _self.getcartdetail();
             // _self. applycoupon( _self.oldCode)
           }, 1000);
     }
@@ -248,7 +248,7 @@ export class CartPage {
       item.quantity -= 1;
       this.auth.setorderincart(item["id"], item["EditionId"], item["quantity"]);
       setTimeout(function () {
-        _self.getcartdetail();
+       // _self.getcartdetail();
         // _self. applycoupon( _self.oldCode)
       }, 1000);
     }
