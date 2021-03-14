@@ -22,10 +22,11 @@ page-product {
         display: flex;
         align-items: center;
         img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            max-width: 100%;
+            max-width: 150px;
+            max-height: 150px;
         }
     }
     ion-input.quantity {
@@ -45,9 +46,9 @@ page-product {
             width: 100%;
         }
     }
-    .add-product {
-        width: 70%;
-    }
+    // .add-product {
+    //     width: 70%;
+    // }
 }
 // .alert-md .alert-head, .alert-ios .alert-head, .alert-md .alert-button-group, .alert-ios .alert-button-group {
 //     padding: 0;

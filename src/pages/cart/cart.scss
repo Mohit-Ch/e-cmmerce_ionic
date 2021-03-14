@@ -19,13 +19,12 @@ page-cart {
         background: #dedede;
     }
     .align-product-image {
-        display: flex;
-        align-items: center;
         img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            max-width: 100%;
+            max-width: 150px;
+            max-height: 150px;
         }
     }
     ion-input.quantity {
@@ -45,9 +44,9 @@ page-cart {
             width: 100%;
         }
     }
-    .add-product {
-        width: 70%;
-    }
+    // .add-product {
+    //     width: 70%;
+    // }
     ion-input.couponcode {
         border: 1px solid #ccc;
         margin-right: 15px;
