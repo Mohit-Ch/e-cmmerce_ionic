@@ -8,5 +8,18 @@ page-home {
     .text-captalize {
        text-transform: capitalize;
     }
-   
+   .text-uppercase{
+    text-transform: uppercase;
+   }
+
+   .text-green{
+    color:#33db64;
+   }
+
+   .text-red{
+    color:#f53e3d;
+   }
+   .Justify-aling{
+       justify-content: space-between;
+   }
 }
