@@ -49,27 +49,16 @@
             <ion-col col-8>
               <h5 class="marginB10" (click)="ProductDetail(item.id)"><b>{{item.itemName}}</b></h5>
               <!-- <ion-item *ngIf="item.EditionType!=0"> -->
-                
               <div>
                 <p>
-                  {{item.Edition.itemEditionName}} <br>  ( {{item.categoryName}} ) 
+                  {{item.Edition.itemEditionName}}
                 </p>
-               
               </div>
-              <div class="flex-container Justify-aling">
-                <div class="no-margin">Qty:- {{item.quantity}}</div>
-                <div class="no-margin">KWD  <b> {{item.price}} </b></div>
+              <div class="flex-container">
+                <ion-input *ngIf="item.ShowAddbutton==true" type='numeric' class="quantity" [(ngModel)]="item.quantity"
+                  width="10%" min="0" [max]="item.maxquantity"></ion-input>
+                <h6 class="no-margin">KWD {{item.price}}</h6>
               </div>
-              <div class="flex-container Justify-aling">
-                <div class="text-uppercase">
-                  Order no:- {{item.orderNo}}  
-                </div> 
-                <h6 class="text-uppercase">
-                  <b  [ngClass]="item.status==='delivered' ? 'text-green' : 'text-red'" > {{item.status}} </b> 
-                </h6>
-               
-              </div>
-              
               <div class="text-center">
                 <button class="add-product" ion-button color='primary' *ngIf="item.ShowAddbutton==true" expand="block"
                   size='lg' fill="outline" (click)="addtoCartClick(item)">Add</button>
