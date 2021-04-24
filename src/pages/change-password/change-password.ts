@@ -42,7 +42,7 @@ export class ChangePasswordPage {
           "",
           Validators.compose([
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(6),
             Validators.maxLength(15)
           ])
         ),
