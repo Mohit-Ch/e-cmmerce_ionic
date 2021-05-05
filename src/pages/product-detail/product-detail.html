@@ -70,6 +70,8 @@
   <ion-toolbar>
     <h5 class="flex2">KWD {{productdata.price}}</h5>
     <button class="flex1" ion-button color='primary' *ngIf="productdata.ShowAddbutton==true"
-      (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Buy</button>
+      (click)="addtoCartClick(item)" expand="block" size='lg' fill="outline">Buy</button> 
+      <button class="flex1" ion-button color='danger' *ngIf="productdata.ShowAddbutton==false"
+       expand="block" size='lg' fill="outline">Currently not in stock</button>
   </ion-toolbar>
 </ion-footer>
