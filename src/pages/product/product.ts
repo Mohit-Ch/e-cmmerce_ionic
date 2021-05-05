@@ -85,14 +85,24 @@ export class ProductPage {
     // this.presentToast("product Add to cart succefully")
   }
   datachange(item) {
+   
     if (item != undefined) {
       if (item["Edition"].length > 0) {
         item["Edition"].forEach(x => {
           if (x["id"] == item["EditionId"]) {
             item["price"] = x["price"];
             item["quantity"] = 1;
+            let itemQuantity =+ x["quantity"];
+         
+            if(itemQuantity>0)
+            {
+              item["ShowAddbutton"]=true;
+            }
+            else{
+              item["ShowAddbutton"]=false;
+            }
           }
-
+         
         });
       }
 

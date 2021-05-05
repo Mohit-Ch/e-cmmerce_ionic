@@ -76,6 +76,7 @@ export class ProductDetailPage {
   }
   datachange()
   {
+
     if(this.productdata!=undefined)
     {
      if(  this.itemedition.length>0)
@@ -86,6 +87,15 @@ export class ProductDetailPage {
           this.productdata["price"]=x["price"];
           this.productdata["quantity"]=1;
           this.remark=x["remark"];
+          let itemQuantity =+ x["quantity"];
+         
+            if(itemQuantity>0)
+            {
+              this.productdata["ShowAddbutton"]=true;
+            }
+            else{
+              this.productdata["ShowAddbutton"]=false;
+            }
         }
         
       });
