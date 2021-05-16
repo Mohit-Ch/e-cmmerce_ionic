@@ -26,6 +26,7 @@
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "2.2.0",
     "cordova-android": "6.3.0",
+    "cordova-ios": "6.2.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -42,7 +43,6 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.4",
-    "@ionic/lab": "3.2.10",
     "typescript": "2.6.2"
   },
   "description": "An Ionic project",
@@ -57,7 +57,8 @@
       "cordova-plugin-uniquedeviceid": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
